@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: car-dealer
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization: false
+  web:
+    #本地浏览器地址
+    googleexcute: explorer
+    #要打开的网址 ${server.port}
+    loginurl: http://localhost:${server.port}/swagger-ui.html
+    #是否要启动时打开浏览器
+    isopenurl: true
+
+#mybatis:
+# mapperLocations: classpath:mapper/*/*.xml
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.sg.bean
+  configuration:
+    map-underscore-to-camel-case: true
+
+######### 分页插件 ##########
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: false
+  support-methods-arguments: true

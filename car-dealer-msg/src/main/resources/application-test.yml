@@ -1,0 +1,26 @@
+server:
+ port: 8083
+ session-timeout: 30
+ tomcat.uri-encoding: UTF-8
+
+spring:
+ profiles: test
+ redis:
+  database: 15
+  host: 10.10.66.219
+  port: 6379
+  password:
+  pool:
+   max-active: 8
+   max-wait: 1
+   max-idle: 8
+   min-idle: 0
+ rabbitmq:
+  host: 10.10.66.215
+  port: 5672
+  username: guest
+  password: guest
+
+file:
+ temp:
+  path: /home/app1/file/

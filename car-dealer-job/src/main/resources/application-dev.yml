@@ -1,0 +1,35 @@
+server:
+ port: 8082
+ session-timeout: 30
+ tomcat.uri-encoding: UTF-8
+
+spring:
+ profiles: dev
+ datasource:
+  url: jdbc:mysql://10.10.66.215:3306/capital_verify?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+  username: root
+  password: sg.321!
+  driverClassName: com.mysql.jdbc.Driver
+  max-active: 20
+  max-idle: 20
+  min-idle: 8
+  initial-size: 10
+ redis:
+  database: 15
+  host: 10.10.66.219
+  port: 6379
+  password:
+  pool:
+   max-active: 8
+   max-wait: 1
+   max-idle: 8
+   min-idle: 0
+ rabbitmq:
+  host: 10.10.66.215
+  port: 5672
+  username: guest
+  password: guest
+
+file:
+ temp:
+  path: /home/app1/file/

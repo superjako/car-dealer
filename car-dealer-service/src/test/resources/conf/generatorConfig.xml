@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<!-- jdbc路径 -->
+	<classPathEntry
+			location="D:\maven_tour\repo\mysql\mysql-connector-java\5.1.43\mysql-connector-java-5.1.43.jar" />
+
+	<context id="context" targetRuntime="MyBatis3">
+
+		<!-- 自动为entity生成swagger2文档-->
+		<plugin type="mybatis.generator.plugins.GeneratorSwagger2Doc">
+			<property name="apiModelAnnotationPackage" value="com.wordnik.swagger.annotations.ApiModel" />
+			<property name="apiModelPropertyAnnotationPackage" value="com.wordnik.swagger.annotations.ApiModelProperty" />
+
+		</plugin>
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+
+		<!-- 带上序列化接口 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<!-- 自定义的注释生成插件-->
+		<plugin type="com.chrm.mybatis.generator.plugins.CommentPlugin">
+			<!-- 抑制警告 -->
+			<property name="suppressTypeWarnings" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="false" />
+			<!-- 是否生成注释代时间戳-->
+			<property name="suppressDate" value="true" />
+		</plugin>
+		<!-- 整合lombok-->
+		<plugin type="com.chrm.mybatis.generator.plugins.LombokPlugin" >
+			<property name="hasLombok" value="true"/>
+		</plugin>
+
+		<commentGenerator>
+			<property name="javaFileEncoding" value="UTF-8" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="false" />
+			<property name="suppressDate" value="false" />
+		</commentGenerator>
+
+		<!-- 请填写connectionURL、userId、password -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://47.104.8.58:3306/tour" userId="root"
+						password="sunpeng123@" />
+
+		<!-- 生成持久化对象 -->
+		<javaModelGenerator targetPackage="com.sg.bean.access"
+							targetProject="src/test/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 生成mapper.xml文件 -->
+		<sqlMapGenerator targetPackage="mapper.access"
+						 targetProject="src/test/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成Mapper接口 -->
+		<javaClientGenerator targetPackage="com.sg.mapper.access"
+							 targetProject="src/test/java" type="XMLMAPPER">
+
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 需要生成的数据库表 -->
+		<table tableName="tb_access_source" domainObjectName="AccessSource" >
+			<generatedKey column="id" sqlStatement=" select max(id)" />
+		</table>
+
+	</context>
+</generatorConfiguration>
