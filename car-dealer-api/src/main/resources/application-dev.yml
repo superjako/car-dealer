@@ -4,29 +4,32 @@ server:
   tomcat.uri-encoding: UTF-8
 
 spring:
-  driver-class-name: oracle.jdbc.OracleDriver
+  datasource:
+    #统一接口平台开发库
+    url: jdbc:mysql://47.104.8.58:3306/car?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    driver-class-name:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      url: jdbc:oracle:thin:@10.200.25.38:1521/hydeeBZB
-      driver-class-name: oracle.jdbc.OracleDriver
-      username: h2
+      #统一接口平台开发库
+      username: root
+      password: Sunpeng123@
       #配置初始化大小/最小/最大
-      initialSize: 10
-      minIdle: 10
+      initialSize: 1
+      minIdle: 1
       maxActive: 50
       #获取连接等待超时时间
       maxWait: 60000
       #间隔多久进行一次检测，检测需要关闭的空闲连接
-      timeBetweenEvictionRunsMillis: 300000
+      timeBetweenEvictionRunsMillis: 60000
       #一个连接在池中最小生存的时间
-      minEvictableIdleTimeMillis: 3600000
+      minEvictableIdleTimeMillis: 300000
       validationQuery: SELECT 1 from dual
       testWhileIdle: true
       testOnBorrow: true
-      testOnReturn: true
+      testOnReturn: false
       #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
       poolPreparedStatements: false
-      maxPoolPreparedStatementPerConnectionSize: -1
+      maxPoolPreparedStatementPerConnectionSize: 20
       # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
       web-stat-filter:
         enabled: true
@@ -44,6 +47,8 @@ spring:
         reset-enable: false
         login-username: druid
         login-password: druid
+        #allow:
+        #deny:
 
 file:
   temp:
