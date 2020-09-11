@@ -35,7 +35,7 @@ public class FileUploadController {
     @Value("${file.temp.path}")
     private String uploadPath;
 
-    @ApiOperation(value = "上传附件接口2", notes = "上传附件接口")
+    @ApiOperation(value = "上传附件接口", notes = "上传附件接口")
     @RequestMapping(value = "/uploadFile", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     public RestAPIResult<Object> uploadFile(@ApiParam("文件") MultipartFile file, HttpServletRequest request){
         RestAPIResult<Object> result = new RestAPIResult<>();

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sg.mapper.CarBrandMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sg.bean.CarBrand">
+        <id column="ID" property="id" />
+        <result column="NAME" property="name" />
+        <result column="CODE" property="code" />
+        <result column="STATUS" property="status" />
+        <result column="CREATER" property="creater" />
+        <result column="CREATEDATE" property="createdate" />
+        <result column="UPDATER" property="updater" />
+        <result column="UPDATEDATE" property="updatedate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, NAME, CODE, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
+    </sql>
+
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sg.mapper.CarEngineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sg.bean.CarEngine">
+        <id column="ID" property="id" />
+        <result column="BASE_INFO_ID" property="baseInfoId" />
+        <result column="ENGINE_MODEL" property="engineModel" />
+        <result column="DISPLACEMENT" property="displacement" />
+        <result column="INTAKE_FORM" property="intakeForm" />
+        <result column="CYLINDER_NUMBER" property="cylinderNumber" />
+        <result column="CYLINDER_VALVE_NUMBER" property="cylinderValveNumber" />
+        <result column="FUEL_FORM" property="fuelForm" />
+        <result column="STATUS" property="status" />
+        <result column="CREATER" property="creater" />
+        <result column="CREATEDATE" property="createdate" />
+        <result column="UPDATER" property="updater" />
+        <result column="UPDATEDATE" property="updatedate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, BASE_INFO_ID, ENGINE_MODEL, DISPLACEMENT, INTAKE_FORM, CYLINDER_NUMBER, CYLINDER_VALVE_NUMBER, FUEL_FORM, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
+    </sql>
+
+</mapper>

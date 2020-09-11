@@ -59,20 +59,13 @@ public class CodeGenerator {
         mpg.setGlobalConfig(gc);
 
         //数据源配置
-   /*     DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://47.104.8.58:3306/tour?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false");
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl("jdbc:mysql://47.104.8.58:3306/car?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("sunpeng123@");
-        mpg.setDataSource(dsc);*/
-
-        //数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:oracle:thin:@10.200.25.38:1521:hydeeBZB");
-        dsc.setDriverName("oracle.jdbc.OracleDriver");
-        dsc.setUsername("h2");
-        dsc.setPassword("hydeesoft");
+        dsc.setPassword("Sunpeng123@");
         mpg.setDataSource(dsc);
+
 
         // 包配置
         PackageConfig pc = new PackageConfig();
@@ -106,17 +99,17 @@ public class CodeGenerator {
         strategy.setNaming(NamingStrategy.underline_to_camel);    //表名生成策略
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略, 未指定按照 naming 执行
 //	        strategy.setCapitalMode(true);			// 全局大写命名 ORACLE 注意
-        strategy.setTablePrefix("hudit_");        //表前缀
+        strategy.setTablePrefix("tb_");        //表前缀
 //	        strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");	//自定义继承的Entity类全称，带包名
 //	        strategy.setSuperEntityColumns(new String[] { "test_id", "age" }); 	//自定义实体，公共字段
         strategy.setEntityLombokModel(true);    //【实体】是否为lombok模型（默认 false
         strategy.setRestControllerStyle(true);    //生成 @RestController 控制器
-        strategy.setSuperControllerClass("com.hydee.hudit.manager.controller.BaseController");    //自定义继承的Controller类全称，带包名
+        strategy.setSuperControllerClass("com.sg.BaseController");    //自定义继承的Controller类全称，带包名
         strategy.setInclude(scanner("表名"));        //需要包含的表名，允许正则表达式（与exclude二选一配置）
 //	        strategy.setInclude(new String[] { "user" }); // 需要生成的表可以多张表
 //	        strategy.setExclude(new String[]{"test"}); // 排除生成的表
         strategy.setControllerMappingHyphenStyle(true);    //驼峰转连字符
-        strategy.setTablePrefix(pc.getModuleName() + "_");    //是否生成实体时，生成字段注解
+        //strategy.setTablePrefix(pc.getModuleName() + "_");    //是否生成实体时，生成字段注解
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();

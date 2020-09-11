@@ -1,7 +1,6 @@
 package com.sg;
 
 import com.sg.bean.RestAPIResult;
-import com.sg.bean.system.SystemUser;
 import com.sg.exception.BusinessException;
 import com.sg.exception.DatabaseException;
 import org.apache.log4j.Logger;
