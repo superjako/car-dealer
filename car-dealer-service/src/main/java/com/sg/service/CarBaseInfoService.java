@@ -24,6 +24,6 @@ public interface CarBaseInfoService extends IService<CarBaseInfo> {
      * @param imgs
      * @throws BusinessException
      */
-    void saveInfo(CarBaseInfo carBaseInfo, CarBody carBody, CarChassis carChassis, CarEngine carEngine, CarGearbox carGearbox, String imgs) throws BusinessException;
+    void saveInfo(CarBaseInfo carBaseInfo, CarBody carBody, CarChassis carChassis, CarEngine carEngine, CarGearbox carGearbox, String imgs) throws Exception;
 
 }

@@ -26,7 +26,7 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api() {
 		List<Parameter> parameters = new ArrayList<>();
-		parameters.add(new ParameterBuilder()
+	/*	parameters.add(new ParameterBuilder()
 				.name("userId")
 				.description("用户ID")
 				.modelRef(new ModelRef("string"))
@@ -39,7 +39,7 @@ public class SwaggerConfig {
 				.modelRef(new ModelRef("string"))
 				.parameterType("header")
 				.required(false)
-				.build());
+				.build());*/
 		return new Docket(DocumentationType.SWAGGER_2).globalOperationParameters(parameters).select()
 				.apis(RequestHandlerSelectors.basePackage("com.sg.api")).paths(PathSelectors.any()).build()
 				.apiInfo(apiInfo());

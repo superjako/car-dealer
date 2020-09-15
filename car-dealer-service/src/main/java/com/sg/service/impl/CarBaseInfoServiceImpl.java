@@ -12,8 +12,10 @@ import org.assertj.core.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +28,9 @@ import java.util.List;
  */
 @Service
 public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBaseInfo> implements CarBaseInfoService {
+    /*@Autowired
+    CarBaseInfoMapper carBaseInfoMapper;*/
+
     @Autowired
     CarBodyService carBodyService;
 
@@ -42,32 +47,64 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
     CarAttachService carAttachService;
 
     @Override
-    public void saveInfo(CarBaseInfo carBaseInfo, CarBody carBody, CarChassis carChassis, CarEngine carEngine, CarGearbox carGearbox, String imgs) throws BusinessException {
+    public void saveInfo(CarBaseInfo carBaseInfo, CarBody carBody, CarChassis carChassis, CarEngine carEngine, CarGearbox carGearbox, String imgs) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createDate = simpleDateFormat.format(new Date());
         if (Strings.isNullOrEmpty(carBaseInfo.getId())) {
+            carBaseInfo.setCreatedate(createDate);
             this.save(carBaseInfo);
+            //carBaseInfoMapper.insert(carBaseInfo);
 
+            carBody.setBaseInfoId(carBaseInfo.getId());
+            carBody.setCreatedate(createDate);
             carBodyService.save(carBody);
 
+            carChassis.setBaseInfoId(carBaseInfo.getId());
+            carChassis.setCreatedate(createDate);
             carChassisService.save(carChassis);
 
+            carEngine.setBaseInfoId(carBaseInfo.getId());
+            carEngine.setCreatedate(createDate);
             carEngineService.save(carEngine);
 
+            carGearbox.setBaseInfoId(carBaseInfo.getId());
+            carGearbox.setCreatedate(createDate);
             carGearboxService.save(carGearbox);
         } else {
             //编辑
+            carBaseInfo.setUpdatedate(createDate);
+            this.updateById(carBaseInfo);
+
+            LambdaQueryWrapper<CarBody> lambdaQuery = Wrappers.lambdaQuery();
+            lambdaQuery.eq(CarBody::getBaseInfoId, carBaseInfo.getId());
+            carBody.setUpdatedate(createDate);
+            carBodyService.update(carBody, lambdaQuery);
+
+            LambdaQueryWrapper<CarChassis> carChassisLambdaQueryWrapper = Wrappers.lambdaQuery();
+            carChassisLambdaQueryWrapper.eq(CarChassis::getBaseInfoId, carBaseInfo.getId());
+            carChassis.setUpdatedate(createDate);
+            carChassisService.update(carChassis, carChassisLambdaQueryWrapper);
+
+            LambdaQueryWrapper<CarEngine> carEngineLambdaQueryWrapper = Wrappers.lambdaQuery();
+            carEngineLambdaQueryWrapper.eq(CarEngine::getBaseInfoId, carBaseInfo.getId());
+            carEngine.setUpdatedate(createDate);
+            carEngineService.update(carEngine, carEngineLambdaQueryWrapper);
+
+            LambdaQueryWrapper<CarGearbox> carGearboxLambdaQueryWrapper = Wrappers.lambdaQuery();
+            carGearboxLambdaQueryWrapper.eq(CarGearbox::getBaseInfoId, carBaseInfo.getId());
+            carGearbox.setUpdatedate(createDate);
+            carGearboxService.update(carGearbox, carGearboxLambdaQueryWrapper);
         }
 
         List<CarAttach> carAttaches = new ArrayList<>();
         //保存数据到附件信息表
-        String[] imgArr = imgs.split(";");
+        String[] imgArr = imgs.split(",");
         for (String s : imgArr) {
-            String[] imgCharArry = s.split(",");
             CarAttach carAttach = new CarAttach();
             carAttach.setBaseInfoId(carBaseInfo.getId());
-            carAttach.setCreatedate(LocalDateTime.now());
+            carAttach.setCreatedate(createDate);
             carAttach.setCreater("");
-            carAttach.setFilename(imgCharArry[0]);
-            carAttach.setFilepath(imgCharArry[1]);
+            carAttach.setFilepath(s);
             carAttaches.add(carAttach);
         }
 

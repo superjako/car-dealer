@@ -1,5 +1,6 @@
 package com.sg.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -29,7 +30,7 @@ public class CarAttach implements Serializable {
     /**
      * 主键ID
      */
-    @TableId("ID")
+    @TableId(value = "ID", type = IdType.UUID)
     private String id;
 
     /**
@@ -66,7 +67,7 @@ public class CarAttach implements Serializable {
      * 创建时间
      */
     @TableField("CREATEDATE")
-    private LocalDateTime createdate;
+    private String createdate;
 
     /**
      * 修改人
@@ -78,7 +79,7 @@ public class CarAttach implements Serializable {
      * 修改时间
      */
     @TableField("UPDATEDATE")
-    private LocalDateTime updatedate;
+    private String updatedate;
 
 
 }

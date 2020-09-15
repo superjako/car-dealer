@@ -1,5 +1,6 @@
 package com.sg.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -27,10 +28,16 @@ public class CarChassis implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键id
+     * 主键ID
      */
-    @TableId("ID")
+    @TableId(value = "ID", type = IdType.UUID)
     private String id;
+
+    /**
+     * 车辆基本信息表id
+     */
+    @TableField("BASE_INFO_ID")
+    private String baseInfoId;
 
     /**
      * 驱动方式
@@ -66,7 +73,7 @@ public class CarChassis implements Serializable {
      * 创建时间
      */
     @TableField("CREATEDATE")
-    private LocalDateTime createdate;
+    private String createdate;
 
     /**
      * 修改人
@@ -78,7 +85,7 @@ public class CarChassis implements Serializable {
      * 修改时间
      */
     @TableField("UPDATEDATE")
-    private LocalDateTime updatedate;
+    private String updatedate;
 
 
 }

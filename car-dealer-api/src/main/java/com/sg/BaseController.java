@@ -16,13 +16,13 @@ import javax.xml.bind.ValidationException;
 @Controller
 public class BaseController {
 
-    private static final Logger LOGGER = Logger.getLogger(BaseController.class);
+/*    private static final Logger LOGGER = Logger.getLogger(BaseController.class);
 
     @Autowired
     protected HttpServletRequest request;
 
-  /*  @Autowired
-    private SystemUserService userService;*/
+  *//*  @Autowired
+    private SystemUserService userService;*//*
 
     @ExceptionHandler(Exception.class)
     public @ResponseBody
@@ -73,9 +73,9 @@ public class BaseController {
         return new RestAPIResult<>("JSON格式转换异常");
     }
 
-    /**
+    *//**
      * printStackTrace:日志中打印错误信息<br/>
-     */
+     *//*
     public void printStackTrace(Exception ex) {
         ex.printStackTrace();
         StackTraceElement[] ste = ex.getStackTrace();
@@ -97,7 +97,7 @@ public class BaseController {
                 LOGGER.error(errorMsg);
             }
         }
-    }
+    }*/
 
     /**
      * 获取当前登录用户信息

@@ -26,7 +26,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
 
         //注册拦截器，添加拦截路径和排除拦截路径-登录验证
         registry.addInterceptor(getLoginCheckInterceptor()).addPathPatterns("/api/**")
-        				.excludePathPatterns("/api/user/login")
+        				.excludePathPatterns("/api/login")
                         .excludePathPatterns("/api/**/exportExcel");
     }
 

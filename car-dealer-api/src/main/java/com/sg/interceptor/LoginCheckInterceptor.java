@@ -19,7 +19,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		String token = request.getHeader("token");
+		/*String token = request.getHeader("token");
 		String userId = request.getHeader("userId");
 
 		//开发调试时开个口子，当userId传1时，允许通过
@@ -39,7 +39,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		if (!token.equals(tokenCache)) {
 			processResult(response);
 			return false;
-		}
+		}*/
 		return true;
 	}
 

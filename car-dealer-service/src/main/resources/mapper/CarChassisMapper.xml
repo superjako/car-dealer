@@ -4,20 +4,21 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.sg.bean.CarChassis">
-        <id column="ID" property="id" />
-        <result column="DRIVE_WAY" property="driveWay" />
-        <result column="BOOST_TYPE" property="boostType" />
-        <result column="STRUCTURE" property="structure" />
-        <result column="STATUS" property="status" />
-        <result column="CREATER" property="creater" />
-        <result column="CREATEDATE" property="createdate" />
-        <result column="UPDATER" property="updater" />
-        <result column="UPDATEDATE" property="updatedate" />
+        <id column="ID" property="id"/>
+        <result column="DRIVE_WAY" property="driveWay"/>
+        <result column="BASE_INFO_ID" property="baseInfoId"/>
+        <result column="BOOST_TYPE" property="boostType"/>
+        <result column="STRUCTURE" property="structure"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATER" property="creater"/>
+        <result column="CREATEDATE" property="createdate"/>
+        <result column="UPDATER" property="updater"/>
+        <result column="UPDATEDATE" property="updatedate"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, DRIVE_WAY, BOOST_TYPE, STRUCTURE, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
+        ID, BASE_INFO_ID,DRIVE_WAY, BOOST_TYPE, STRUCTURE, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
     </sql>
 
 </mapper>
