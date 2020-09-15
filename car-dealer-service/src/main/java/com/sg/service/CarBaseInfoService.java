@@ -1,7 +1,11 @@
 package com.sg.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sg.bean.*;
+import com.sg.bean.vo.CarBaseInfoVo;
+import com.sg.bean.vo.CarInfoQueryVo;
 import com.sg.exception.BusinessException;
 
 /**
@@ -13,6 +17,15 @@ import com.sg.exception.BusinessException;
  * @since 2020-09-11
  */
 public interface CarBaseInfoService extends IService<CarBaseInfo> {
+
+    /**
+     * 分页查询
+     * @param page
+     * @param record
+     * @return
+     */
+    IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page, CarInfoQueryVo record);
+
     /**
      * 保存车辆信息
      *
@@ -26,4 +39,11 @@ public interface CarBaseInfoService extends IService<CarBaseInfo> {
      */
     void saveInfo(CarBaseInfo carBaseInfo, CarBody carBody, CarChassis carChassis, CarEngine carEngine, CarGearbox carGearbox, String imgs) throws Exception;
 
+    /**
+     * 删除车辆信息
+     *
+     * @param id
+     * @param userId
+     */
+    void deleteInfo(String id, String userId);
 }

@@ -1,11 +1,14 @@
 package com.sg.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sg.bean.*;
-import com.sg.exception.BusinessException;
+import com.sg.bean.vo.CarBaseInfoVo;
+import com.sg.bean.vo.CarInfoQueryVo;
+import com.sg.constant.SystemConstant;
 import com.sg.mapper.CarBaseInfoMapper;
 import com.sg.service.*;
 import org.assertj.core.util.Strings;
@@ -13,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,8 +30,8 @@ import java.util.List;
  */
 @Service
 public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBaseInfo> implements CarBaseInfoService {
-    /*@Autowired
-    CarBaseInfoMapper carBaseInfoMapper;*/
+    @Autowired
+    CarBaseInfoMapper carBaseInfoMapper;
 
     @Autowired
     CarBodyService carBodyService;
@@ -45,6 +47,12 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
 
     @Autowired
     CarAttachService carAttachService;
+
+    @Override
+    public IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page, CarInfoQueryVo record) {
+        IPage<CarBaseInfoVo> pageDto = carBaseInfoMapper.selectCarInfoPage(page, record);
+        return pageDto;
+    }
 
     @Override
     public void saveInfo(CarBaseInfo carBaseInfo, CarBody carBody, CarChassis carChassis, CarEngine carEngine, CarGearbox carGearbox, String imgs) throws Exception {
@@ -115,5 +123,50 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
         carAttachService.remove(lambdaQuery);
 
         carAttachService.saveBatch(carAttaches);
+    }
+
+    @Override
+    public void deleteInfo(String id, String userId) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createDate = simpleDateFormat.format(new Date());
+
+        CarBaseInfo carBaseInfo = new CarBaseInfo();
+        carBaseInfo.setId(id);
+        carBaseInfo.setUpdatedate(createDate);
+        carBaseInfo.setUpdater(userId);
+        carBaseInfo.setStatus(String.valueOf(SystemConstant.DELETED));
+        this.updateById(carBaseInfo);
+
+        LambdaQueryWrapper<CarBody> lambdaQuery = Wrappers.lambdaQuery();
+        lambdaQuery.eq(CarBody::getBaseInfoId, carBaseInfo.getId());
+        CarBody carBody = new CarBody();
+        carBody.setUpdatedate(createDate);
+        carBody.setUpdater(userId);
+        carBody.setStatus(String.valueOf(SystemConstant.DELETED));
+        carBodyService.update(carBody, lambdaQuery);
+
+        LambdaQueryWrapper<CarChassis> carChassisLambdaQueryWrapper = Wrappers.lambdaQuery();
+        carChassisLambdaQueryWrapper.eq(CarChassis::getBaseInfoId, carBaseInfo.getId());
+        CarChassis carChassis = new CarChassis();
+        carChassis.setUpdatedate(createDate);
+        carChassis.setUpdater(userId);
+        carChassis.setStatus(String.valueOf(SystemConstant.DELETED));
+        carChassisService.update(carChassis, carChassisLambdaQueryWrapper);
+
+        LambdaQueryWrapper<CarEngine> carEngineLambdaQueryWrapper = Wrappers.lambdaQuery();
+        carEngineLambdaQueryWrapper.eq(CarEngine::getBaseInfoId, carBaseInfo.getId());
+        CarEngine carEngine = new CarEngine();
+        carEngine.setUpdatedate(createDate);
+        carEngine.setUpdater(userId);
+        carEngine.setStatus(String.valueOf(SystemConstant.DELETED));
+        carEngineService.update(carEngine, carEngineLambdaQueryWrapper);
+
+        LambdaQueryWrapper<CarGearbox> carGearboxLambdaQueryWrapper = Wrappers.lambdaQuery();
+        carGearboxLambdaQueryWrapper.eq(CarGearbox::getBaseInfoId, carBaseInfo.getId());
+        CarGearbox carGearbox = new CarGearbox();
+        carGearbox.setUpdatedate(createDate);
+        carGearbox.setUpdater(userId);
+        carGearbox.setStatus(String.valueOf(SystemConstant.DELETED));
+        carGearboxService.update(carGearbox, carGearboxLambdaQueryWrapper);
     }
 }

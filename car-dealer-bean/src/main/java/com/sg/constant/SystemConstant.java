@@ -109,4 +109,14 @@ public class SystemConstant {
          */
         public static final String EXCEL_XLSX = "xlsx";
     }
+
+    /**
+     * 默认页码
+     */
+    public static final Integer PAGE_NUM = 1;
+
+    /**
+     * 默认页数
+     */
+    public static final Integer PAGE_SIZE = 10;
 }

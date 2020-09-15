@@ -4,19 +4,23 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.sg.bean.CarBaseInfo">
-        <id column="ID" property="id" />
-        <result column="TITLE" property="title" />
-        <result column="DRIVER_MILEAGE" property="driverMileage" />
-        <result column="DISPLACEMENT" property="displacement" />
-        <result column="LOCATION" property="location" />
-        <result column="PRICE" property="price" />
-        <result column="BRAND_ID" property="brandId" />
-        <result column="ON_CARD_DATE" property="onCardDate" />
-        <result column="STATUS" property="status" />
-        <result column="CREATER" property="creater" />
-        <result column="CREATEDATE" property="createdate" />
-        <result column="UPDATER" property="updater" />
-        <result column="UPDATEDATE" property="updatedate" />
+        <id column="ID" property="id"/>
+        <result column="TITLE" property="title"/>
+        <result column="DRIVER_MILEAGE" property="driverMileage"/>
+        <result column="DISPLACEMENT" property="displacement"/>
+        <result column="LOCATION" property="location"/>
+        <result column="PRICE" property="price"/>
+        <result column="BRAND_ID" property="brandId"/>
+        <result column="ON_CARD_DATE" property="onCardDate"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATER" property="creater"/>
+        <result column="CREATEDATE" property="createdate"/>
+        <result column="UPDATER" property="updater"/>
+        <result column="UPDATEDATE" property="updatedate"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.sg.bean.vo.CarBaseInfoVo">
+
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -24,4 +28,20 @@
         ID, TITLE, DRIVER_MILEAGE, DISPLACEMENT, LOCATION, PRICE, BRAND_ID, ON_CARD_DATE, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
     </sql>
 
+    <!--分页查询-->
+    <select id="selectCarInfoPage" resultMap="BaseResultMapVo">
+        select
+        <include refid="Base_Column_List"/>
+        from TB_CAR_BASE_INFO a
+        left join TB_CAR_BRAND b on a.BRAND_ID = b.id
+        <where>
+            <if test="record.brandId != null and record.brandId != ''">
+                and b.id = #{record.username}
+            </if>
+            <if test="record.price != null and record.price != ''">
+                and b.id = #{record.price}
+            </if>
+        </where>
+        order by a.CREATEDATE desc
+    </select>
 </mapper>
