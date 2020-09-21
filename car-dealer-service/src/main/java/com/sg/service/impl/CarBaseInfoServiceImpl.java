@@ -126,6 +126,40 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
     }
 
     @Override
+    public void saveInfo(CarBaseInfo carBaseInfo, String imgs, String userId) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createDate = simpleDateFormat.format(new Date());
+        if (Strings.isNullOrEmpty(carBaseInfo.getId())) {
+            carBaseInfo.setCreatedate(createDate);
+            this.save(carBaseInfo);
+        } else {
+            //编辑
+            carBaseInfo.setUpdatedate(createDate);
+            this.updateById(carBaseInfo);
+        }
+
+        List<CarAttach> carAttaches = new ArrayList<>();
+        //保存数据到附件信息表
+        String[] imgArr = imgs.split(",");
+        for (String s : imgArr) {
+            CarAttach carAttach = new CarAttach();
+            carAttach.setBaseInfoId(carBaseInfo.getId());
+            carAttach.setCreatedate(createDate);
+            carAttach.setCreater("");
+            carAttach.setFilepath(s);
+            carAttaches.add(carAttach);
+        }
+
+        LambdaQueryWrapper<CarAttach> lambdaQuery = Wrappers.lambdaQuery();
+        lambdaQuery.eq(CarAttach::getBaseInfoId, carBaseInfo.getId());
+
+        //先删除
+        carAttachService.remove(lambdaQuery);
+
+        carAttachService.saveBatch(carAttaches);
+    }
+
+    @Override
     public void deleteInfo(String id, String userId) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createDate = simpleDateFormat.format(new Date());
@@ -137,7 +171,7 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
         carBaseInfo.setStatus(String.valueOf(SystemConstant.DELETED));
         this.updateById(carBaseInfo);
 
-        LambdaQueryWrapper<CarBody> lambdaQuery = Wrappers.lambdaQuery();
+      /*  LambdaQueryWrapper<CarBody> lambdaQuery = Wrappers.lambdaQuery();
         lambdaQuery.eq(CarBody::getBaseInfoId, carBaseInfo.getId());
         CarBody carBody = new CarBody();
         carBody.setUpdatedate(createDate);
@@ -167,6 +201,6 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
         carGearbox.setUpdatedate(createDate);
         carGearbox.setUpdater(userId);
         carGearbox.setStatus(String.valueOf(SystemConstant.DELETED));
-        carGearboxService.update(carGearbox, carGearboxLambdaQueryWrapper);
+        carGearboxService.update(carGearbox, carGearboxLambdaQueryWrapper);*/
     }
 }

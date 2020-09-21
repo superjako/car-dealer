@@ -20,6 +20,7 @@ public interface CarBaseInfoService extends IService<CarBaseInfo> {
 
     /**
      * 分页查询
+     *
      * @param page
      * @param record
      * @return
@@ -38,6 +39,16 @@ public interface CarBaseInfoService extends IService<CarBaseInfo> {
      * @throws BusinessException
      */
     void saveInfo(CarBaseInfo carBaseInfo, CarBody carBody, CarChassis carChassis, CarEngine carEngine, CarGearbox carGearbox, String imgs) throws Exception;
+
+    /**
+     * 新增
+     *
+     * @param carBaseInfo
+     * @param imgs
+     * @param userId
+     * @throws Exception
+     */
+    void saveInfo(CarBaseInfo carBaseInfo, String imgs, String userId) throws Exception;
 
     /**
      * 删除车辆信息

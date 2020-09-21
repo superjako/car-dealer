@@ -4,17 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -22,7 +17,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author sunpeng
- * @since 2020-09-11
+ * @since 2020-09-21
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -39,28 +34,16 @@ public class CarBaseInfo implements Serializable {
     private String id;
 
     /**
+     * 汽车所属商铺ID
+     */
+    @TableField("SHOP_ID")
+    private String shopId;
+
+    /**
      * 商品标题
      */
-    @TableField("TITLE")
-    private String title;
-
-    /**
-     * 表显里程
-     */
-    @TableField("DRIVER_MILEAGE")
-    private BigDecimal driverMileage;
-
-    /**
-     * 挡位/排量
-     */
-    @TableField("DISPLACEMENT")
-    private String displacement;
-
-    /**
-     * 汽车所在地
-     */
-    @TableField("LOCATION")
-    private String location;
+    @TableField("NAME")
+    private String name;
 
     /**
      * 车辆价格
@@ -69,18 +52,52 @@ public class CarBaseInfo implements Serializable {
     private BigDecimal price;
 
     /**
-     * 汽车品牌ID
+     * 新车指导价
      */
-    @TableField("BRAND_ID")
-    private String brandId;
+    @TableField("GUIDE_PRICE")
+    private BigDecimal guidePrice;
 
     /**
-     * 上牌日期
+     * 首付
      */
-    @TableField("ON_CARD_DATE")
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime onCardDate;
+    @TableField("FIRST_PAY")
+    private BigDecimal firstPay;
+
+    /**
+     * 月供
+     */
+    @TableField("MONTH_PAY")
+    private BigDecimal monthPay;
+
+    /**
+     * 分期数
+     */
+    @TableField("STAGE")
+    private Integer stage;
+
+    /**
+     * 里程
+     */
+    @TableField("MILE")
+    private BigDecimal mile;
+
+    /**
+     * 过户次数
+     */
+    @TableField("TRANSFER_NUM")
+    private Integer transferNum;
+
+    /**
+     * 汽车类型 1：越野 2：轿车 3：商务 4：皮卡
+     */
+    @TableField("TYPE")
+    private String type;
+
+    /**
+     * 销售状态 0:未卖出 1：已卖出
+     */
+    @TableField("SALE_STATUS")
+    private String saleStatus;
 
     /**
      * 有效性 0：无效 1：有效
