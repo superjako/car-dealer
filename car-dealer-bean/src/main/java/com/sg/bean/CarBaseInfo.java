@@ -46,6 +46,12 @@ public class CarBaseInfo implements Serializable {
     private String name;
 
     /**
+     * 品牌id
+     */
+    @TableField("BRAND_ID")
+    private String brandId;
+
+    /**
      * 车辆价格
      */
     @TableField("PRICE")
