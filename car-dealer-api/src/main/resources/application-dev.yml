@@ -52,4 +52,4 @@ spring:
 
 file:
   temp:
-    path: /fileupload
+    path: /fileupload/
