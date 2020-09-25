@@ -1,11 +1,15 @@
 package com.sg.aop;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -23,81 +27,88 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.alibaba.fastjson.JSONObject;
 import com.sg.bean.RestAPIResult;
 import com.sg.exception.BusinessException;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 @Aspect
 @Order(1)
 public class ApiCallLogAspect {
 
-	private static final Logger LOGGER = Logger.getLogger(ApiCallLogAspect.class);
+    private static final Logger LOGGER = Logger.getLogger(ApiCallLogAspect.class);
 
-	/**
-	 * 所有接口在执行之前输出入参
-	 * @param joinPoint
-	 * @throws BusinessException
-	 */
-	@Before("execution(public * com.sg.api..* (..))")
-	public void doBeforeInService(JoinPoint joinPoint) throws BusinessException {
-		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-		ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-		HttpServletRequest request = sra.getRequest();
+    /**
+     * 所有接口在执行之前输出入参
+     *
+     * @param joinPoint
+     * @throws BusinessException
+     */
+    @Before("execution(public * com.sg.api..* (..))")
+    public void doBeforeInService(JoinPoint joinPoint) throws BusinessException {
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+        HttpServletRequest request = sra.getRequest();
 
-		String requestURI = request.getRequestURI(); //请求的URL
-		Map<String, String> paramMap = getParameterMap(request);
+        String requestURI = request.getRequestURI(); //请求的URL
+        Map<String, String> paramMap = getParameterMap(request);
 
-		if(CollectionUtils.isEmpty(paramMap)){
-			Object[] paramValues = joinPoint.getArgs();
+        if (CollectionUtils.isEmpty(paramMap)) {
+            Object[] logArgs = joinPoint.getArgs();
 
-	        Signature signature = joinPoint.getSignature();
-	        MethodSignature methodSignature = (MethodSignature) signature;
-	        String[] paramNames = methodSignature.getParameterNames();
+            Signature signature = joinPoint.getSignature();
+            MethodSignature methodSignature = (MethodSignature) signature;
+            String[] paramNames = methodSignature.getParameterNames();
 
-			StringBuffer buff = new StringBuffer();
-			buff.append("{");
-			for (int i = 0; i < paramNames.length; i++)
-            {
-				buff.append(paramNames[i]);
-				buff.append("=");
-				buff.append(JSONObject.toJSONString(paramValues[i]));
-				if(i < paramNames.length-1){
-					buff.append(", ");
-				}
+            StringBuffer buff = new StringBuffer();
+            buff.append("{");
+            for (int i = 0; i < paramNames.length; i++) {
+                if (logArgs[i] instanceof ServletRequest || logArgs[i] instanceof ServletResponse || logArgs[i] instanceof MultipartFile) {
+                    //ServletRequest不能序列化，从入参里排除，否则报异常：java.lang.IllegalStateException: It is illegal to call this method if the current request is not in asynchronous mode (i.e. isAsyncStarted() returns false)
+                    //ServletResponse不能序列化 从入参里排除，否则报异常：java.lang.IllegalStateException: getOutputStream() has already been called for this response
+                    continue;
+                }
+
+                buff.append(paramNames[i]);
+                buff.append("=");
+                buff.append(JSONObject.toJSONString(logArgs[i]));
+                if (i < paramNames.length - 1) {
+                    buff.append(", ");
+                }
             }
-			buff.append("}");
-			LOGGER.info("===请求："+requestURI+" 入参："+buff.toString());
-		}else{
-			LOGGER.info("===请求："+requestURI+" 入参："+paramMap);
-		}
-	}
+            buff.append("}");
+            LOGGER.info("===请求：" + requestURI + " 入参：" + buff.toString());
+        } else {
+            LOGGER.info("===请求：" + requestURI + " 入参：" + paramMap);
+        }
+    }
 
-	@SuppressWarnings("rawtypes")
-	/**
-	 * 所有接口在返回结果之后输出返回结果
-	 * @param jp
-	 * @param returnVal
-	 */
-	@AfterReturning(pointcut="execution(public * com.sg.api..* (..))",returning="returnVal")
-	public void afterReturning(JoinPoint jp, Object returnVal) throws BusinessException{
-		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-		ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-		HttpServletRequest request = sra.getRequest();
+    @SuppressWarnings("rawtypes")
+    /**
+     * 所有接口在返回结果之后输出返回结果
+     * @param jp
+     * @param returnVal
+     */
+    @AfterReturning(pointcut = "execution(public * com.sg.api..* (..))", returning = "returnVal")
+    public void afterReturning(JoinPoint jp, Object returnVal) throws BusinessException {
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+        HttpServletRequest request = sra.getRequest();
 
-		String requestURI = request.getRequestURI(); //请求的URL
+        String requestURI = request.getRequestURI(); //请求的URL
 
-	    if(returnVal instanceof RestAPIResult){
-	        RestAPIResult result = (RestAPIResult) returnVal;
-	        LOGGER.info("===请求："+requestURI+" 结果："+JSONObject.toJSONString(result));
-	    }
-	}
+        if (returnVal instanceof RestAPIResult) {
+            RestAPIResult result = (RestAPIResult) returnVal;
+            LOGGER.info("===请求：" + requestURI + " 结果：" + JSONObject.toJSONString(result));
+        }
+    }
 
-	@SuppressWarnings("rawtypes")
-	private Map<String, String> getParameterMap(HttpServletRequest request) {
+    @SuppressWarnings("rawtypes")
+    private Map<String, String> getParameterMap(HttpServletRequest request) {
         // 参数Map
         Map<?, ?> properties = request.getParameterMap();
         // 返回值Map
         Map<String, String> returnMap = new HashMap<String, String>();
         Iterator<?> entries = properties.entrySet().iterator();
-		Map.Entry entry;
+        Map.Entry entry;
         String name = "";
         String value = "";
         while (entries.hasNext()) {
