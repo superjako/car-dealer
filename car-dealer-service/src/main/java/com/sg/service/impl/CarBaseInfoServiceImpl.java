@@ -54,6 +54,14 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
     @Override
     public IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page, CarInfoQueryVo record) {
         IPage<CarBaseInfoVo> pageDto = carBaseInfoMapper.selectCarInfoPage(page, record);
+        for (int i = 0; i < pageDto.getRecords().size(); i++) {
+            String id = pageDto.getRecords().get(i).getId();
+            //根据id查询图片信息
+            LambdaQueryWrapper<CarAttach> lambdaQuery = Wrappers.lambdaQuery();
+            lambdaQuery.eq(CarAttach::getBaseInfoId, id);
+            List<CarAttach> carAttachList = carAttachService.list(lambdaQuery);
+            pageDto.getRecords().get(i).setCarPictureList(carAttachList);
+        }
         return pageDto;
     }
 
