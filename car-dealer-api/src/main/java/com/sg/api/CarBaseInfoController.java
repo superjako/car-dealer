@@ -56,7 +56,7 @@ public class CarBaseInfoController extends BaseController {
         carBaseInfoService.saveInfo(carInfoVo.getCarBaseInfo(), carInfoVo.getCarBody(), carInfoVo.getCarChassis(), carInfoVo.getCarEngine(), carInfoVo.getCarGearbox(), imgs);
         return R.ok("");
     }*/
-
+    
     @ApiOperation(value = "发布和编辑车辆信息")
     @PostMapping("/saveCarInfo")
     public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarBaseInfo carBaseInfo,

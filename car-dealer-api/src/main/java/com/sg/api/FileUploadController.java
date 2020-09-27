@@ -43,17 +43,16 @@ public class FileUploadController {
 
     @ApiOperation(value = "上传文件接口", notes = "上传文件接口")
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public RestAPIResult<Object> uploadFile(@ApiParam("文件") MultipartFile file, HttpServletRequest request){
-        RestAPIResult<Object> result = new RestAPIResult<>();
+    public R uploadFile(@ApiParam("文件") MultipartFile file, HttpServletRequest request) {
+        String file1 = "";
         try {
             InputStream inputStream = file.getInputStream();
             String fileName = file.getOriginalFilename();
-            String file1 = getFileSubstr(request).append(fileUploadUtil.upload(fileName,inputStream)).toString();
-            result.setRespData(file1);
+            file1 = getFileSubstr(request).append(fileUploadUtil.upload(fileName, inputStream)).toString();
         } catch (Exception e) {
             logger.error("fileupload error in method uploadFile" + e.getMessage());
         }
-        return result;
+        return R.ok(file1);
     }
 
 
