@@ -9,8 +9,10 @@ import com.sg.bean.*;
 import com.sg.bean.vo.CarBaseInfoVo;
 import com.sg.bean.vo.CarInfoQueryVo;
 import com.sg.constant.SystemConstant;
+import com.sg.exception.BusinessException;
 import com.sg.mapper.CarBaseInfoMapper;
 import com.sg.service.*;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,7 +129,7 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
     }
 
     @Override
-    public void saveInfo(CarBaseInfo carBaseInfo, String imgs, String userId) throws Exception {
+    public void saveInfo(CarBaseInfoVo carBaseInfo, String userId) throws BusinessException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createDate = simpleDateFormat.format(new Date());
         if (Strings.isNullOrEmpty(carBaseInfo.getId())) {
@@ -140,8 +142,13 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
         }
 
         List<CarAttach> carAttaches = new ArrayList<>();
+
+        if (StringUtils.isBlank(carBaseInfo.getImgs())) {
+            throw new BusinessException("图片不能为空！");
+        }
+
         //保存数据到附件信息表
-        String[] imgArr = imgs.split(",");
+        String[] imgArr = carBaseInfo.getImgs().split(",");
         for (String s : imgArr) {
             CarAttach carAttach = new CarAttach();
             carAttach.setBaseInfoId(carBaseInfo.getId());

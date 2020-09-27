@@ -44,11 +44,10 @@ public interface CarBaseInfoService extends IService<CarBaseInfo> {
      * 新增
      *
      * @param carBaseInfo
-     * @param imgs
      * @param userId
      * @throws Exception
      */
-    void saveInfo(CarBaseInfo carBaseInfo, String imgs, String userId) throws Exception;
+    void saveInfo(CarBaseInfoVo carBaseInfo, String userId) throws BusinessException;
 
     /**
      * 删除车辆信息
