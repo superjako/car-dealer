@@ -147,6 +147,7 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
             throw new BusinessException("图片不能为空！");
         }
 
+
         //保存数据到附件信息表
         String[] imgArr = carBaseInfo.getImgs().split(",");
         for (String s : imgArr) {
