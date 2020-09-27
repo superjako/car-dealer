@@ -35,20 +35,16 @@ public class CarBaseInfoController extends BaseController {
     /**
      * 分页查询数据
      *
-     * @param vo       :筛选条件实体类对象
-     * @param pageNum  :分页页码
-     * @param pageSize :每页查询数量
+     * @param vo :筛选条件实体类对象
      * @return
      */
     @ApiOperation(value = "分页查询", notes = "分页查询接口")
-    @PostMapping("/selectPageList")
+    @GetMapping("/selectPageList")
     public R selectPageList(
-            @ApiParam("查询条件实体对象") @RequestBody(required = false) CarInfoQueryVo vo,
-            @ApiParam("页码") @RequestParam(required = false) Integer pageNum,
-            @ApiParam("条数") @RequestParam(required = false) Integer pageSize) {
-        pageNum = pageNum == null ? SystemConstant.PAGE_NUM : pageNum;
-        pageSize = pageSize == null ? SystemConstant.PAGE_SIZE : pageSize;
-        return R.ok(carBaseInfoService.selectCarInfoPage(new Page<>(pageNum, pageSize), vo));
+            @ApiParam("查询条件实体对象") @RequestBody(required = false) CarInfoQueryVo vo) {
+        if (vo.getPageNum() == null) vo.setPageNum(SystemConstant.PAGE_NUM);
+        if (vo.getPageSize() == null) vo.setPageSize(SystemConstant.PAGE_SIZE);
+        return R.ok(carBaseInfoService.selectCarInfoPage(new Page<>(vo.getPageNum(), vo.getPageSize()), vo));
     }
 
     @ApiOperation(value = "发布和编辑车辆信息")

@@ -15,6 +15,19 @@ public class CarInfoQueryVo {
     //价格区间（末）
     private BigDecimal endPrice;
 
-    //商铺idco
+    //商铺id
     private String shopId;
+
+    //首付
+    private BigDecimal startFirstPay;
+    private BigDecimal endFirstPay;
+
+    //汽车类型
+    private String type;
+
+    //页码
+    private Integer pageNum;
+
+    //条数
+    private Integer pageSize;
 }

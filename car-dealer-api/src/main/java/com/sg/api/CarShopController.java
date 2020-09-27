@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.sg.BaseController;
 import com.sg.bean.CarBaseInfo;
 import com.sg.bean.CarShop;
+import com.sg.bean.vo.CarShopVo;
 import com.sg.service.CarShopService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,9 +30,8 @@ public class CarShopController extends BaseController {
 
     @ApiOperation(value = "店铺注册")
     @PostMapping("/saveShopInfo")
-    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarShop carShop,
-                         @ApiParam(value = "图片id(格式：id,id,id...)", required = true) @RequestParam(name = "imgs") String imgs) throws Exception {
-        carShopService.saveInfo(carShop, imgs, "");
+    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarShopVo carShop) throws Exception {
+        carShopService.saveInfo(carShop, carShop.getImgs(), "");
         return R.ok("");
     }
 }
