@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sg.BaseController;
 import com.sg.bean.CarBaseInfo;
+import com.sg.bean.vo.CarBaseInfoVo;
 import com.sg.bean.vo.CarInfoQueryVo;
 import com.sg.constant.SystemConstant;
 import com.sg.service.CarBaseInfoService;
@@ -49,14 +50,6 @@ public class CarBaseInfoController extends BaseController {
         return R.ok(carBaseInfoService.selectCarInfoPage(new Page<>(pageNum, pageSize), vo));
     }
 
- /*   @ApiOperation(value = "发布和编辑车辆信息")
-    @PostMapping("/saveCarInfo")
-    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarInfoVo carInfoVo,
-                         @ApiParam(value = "图片id(格式：id,id,id...)", required = true) @RequestParam(name = "imgs") String imgs) throws Exception {
-        carBaseInfoService.saveInfo(carInfoVo.getCarBaseInfo(), carInfoVo.getCarBody(), carInfoVo.getCarChassis(), carInfoVo.getCarEngine(), carInfoVo.getCarGearbox(), imgs);
-        return R.ok("");
-    }*/
-    
     @ApiOperation(value = "发布和编辑车辆信息")
     @PostMapping("/saveCarInfo")
     public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarBaseInfo carBaseInfo,
@@ -65,11 +58,17 @@ public class CarBaseInfoController extends BaseController {
         return R.ok("");
     }
 
-
     @ApiOperation(value = "删除车辆信息")
     @PostMapping("/deleteInfo")
     public R deleteInfo(@ApiParam(value = "车辆信息id", required = true) @RequestParam String id) throws Exception {
         carBaseInfoService.deleteInfo(id, "");
         return R.ok("");
+    }
+
+    @ApiOperation(value = "车辆详情信息")
+    @PostMapping("/detail")
+    public R detail(@ApiParam(value = "车辆信息id", required = true) @RequestParam String id) throws Exception {
+        CarBaseInfoVo detail = carBaseInfoService.detail(id);
+        return R.ok(detail);
     }
 }

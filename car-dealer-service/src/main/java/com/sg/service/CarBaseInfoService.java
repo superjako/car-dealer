@@ -57,4 +57,12 @@ public interface CarBaseInfoService extends IService<CarBaseInfo> {
      * @param userId
      */
     void deleteInfo(String id, String userId);
+
+    /**
+     * 详情
+     *
+     * @param id
+     * @return
+     */
+    CarBaseInfoVo detail(String id);
 }

@@ -12,6 +12,7 @@ import com.sg.constant.SystemConstant;
 import com.sg.mapper.CarBaseInfoMapper;
 import com.sg.service.*;
 import org.assertj.core.util.Strings;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -170,37 +171,20 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
         carBaseInfo.setUpdater(userId);
         carBaseInfo.setStatus(String.valueOf(SystemConstant.DELETED));
         this.updateById(carBaseInfo);
+    }
 
-      /*  LambdaQueryWrapper<CarBody> lambdaQuery = Wrappers.lambdaQuery();
-        lambdaQuery.eq(CarBody::getBaseInfoId, carBaseInfo.getId());
-        CarBody carBody = new CarBody();
-        carBody.setUpdatedate(createDate);
-        carBody.setUpdater(userId);
-        carBody.setStatus(String.valueOf(SystemConstant.DELETED));
-        carBodyService.update(carBody, lambdaQuery);
+    @Override
+    public CarBaseInfoVo detail(String id) {
+        CarBaseInfoVo carBaseInfoVo = new CarBaseInfoVo();
+        CarBaseInfo carBaseInfo = this.getById(id);
+        BeanUtils.copyProperties(carBaseInfo, carBaseInfoVo);
 
-        LambdaQueryWrapper<CarChassis> carChassisLambdaQueryWrapper = Wrappers.lambdaQuery();
-        carChassisLambdaQueryWrapper.eq(CarChassis::getBaseInfoId, carBaseInfo.getId());
-        CarChassis carChassis = new CarChassis();
-        carChassis.setUpdatedate(createDate);
-        carChassis.setUpdater(userId);
-        carChassis.setStatus(String.valueOf(SystemConstant.DELETED));
-        carChassisService.update(carChassis, carChassisLambdaQueryWrapper);
+        //查询图片信息
+        LambdaQueryWrapper<CarAttach> lambdaQuery = Wrappers.lambdaQuery();
+        lambdaQuery.eq(CarAttach::getBaseInfoId, carBaseInfo.getId());
+        List<CarAttach> carAttachList = carAttachService.list(lambdaQuery);
 
-        LambdaQueryWrapper<CarEngine> carEngineLambdaQueryWrapper = Wrappers.lambdaQuery();
-        carEngineLambdaQueryWrapper.eq(CarEngine::getBaseInfoId, carBaseInfo.getId());
-        CarEngine carEngine = new CarEngine();
-        carEngine.setUpdatedate(createDate);
-        carEngine.setUpdater(userId);
-        carEngine.setStatus(String.valueOf(SystemConstant.DELETED));
-        carEngineService.update(carEngine, carEngineLambdaQueryWrapper);
-
-        LambdaQueryWrapper<CarGearbox> carGearboxLambdaQueryWrapper = Wrappers.lambdaQuery();
-        carGearboxLambdaQueryWrapper.eq(CarGearbox::getBaseInfoId, carBaseInfo.getId());
-        CarGearbox carGearbox = new CarGearbox();
-        carGearbox.setUpdatedate(createDate);
-        carGearbox.setUpdater(userId);
-        carGearbox.setStatus(String.valueOf(SystemConstant.DELETED));
-        carGearboxService.update(carGearbox, carGearboxLambdaQueryWrapper);*/
+        carBaseInfoVo.setCarPictureList(carAttachList);
+        return carBaseInfoVo;
     }
 }
