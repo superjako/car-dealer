@@ -143,9 +143,9 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
 
         List<CarAttach> carAttaches = new ArrayList<>();
 
-        if (StringUtils.isBlank(carBaseInfo.getImgs())) {
+       /* if (StringUtils.isBlank(carBaseInfo.getImgs())) {
             throw new BusinessException("图片不能为空！");
-        }
+        }*/
 
 
         //保存数据到附件信息表
