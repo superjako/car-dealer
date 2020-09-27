@@ -53,7 +53,7 @@ public class CarBaseInfoController extends BaseController {
 
     @ApiOperation(value = "发布和编辑车辆信息")
     @PostMapping("/saveCarInfo")
-    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarBaseInfoVo carBaseInfo) throws BusinessException {
+    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true)  CarBaseInfoVo carBaseInfo) throws BusinessException {
         carBaseInfoService.saveInfo(carBaseInfo, "");
         return R.ok("");
     }
