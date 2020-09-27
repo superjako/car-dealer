@@ -52,7 +52,7 @@ public class CarBaseInfoController extends BaseController {
 
     @ApiOperation(value = "发布和编辑车辆信息")
     @PostMapping("/saveCarInfo")
-    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarBaseInfo carBaseInfo,
+    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) CarBaseInfo carBaseInfo,
                          @ApiParam(value = "图片id(格式：id,id,id...)", required = true) @RequestParam(name = "imgs") String imgs) throws Exception {
         carBaseInfoService.saveInfo(carBaseInfo, imgs, "");
         return R.ok("");
