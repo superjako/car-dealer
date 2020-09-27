@@ -43,7 +43,7 @@ public class CarBaseInfoController extends BaseController {
     @ApiOperation(value = "分页查询", notes = "分页查询接口")
     @PostMapping("/selectPageList")
     public R selectPageList(
-            @ApiParam("查询条件实体对象") @RequestParam(required = false) CarInfoQueryVo vo,
+            @ApiParam("查询条件实体对象") @RequestBody(required = false) CarInfoQueryVo vo,
             @ApiParam("页码") @RequestParam(required = false) Integer pageNum,
             @ApiParam("条数") @RequestParam(required = false) Integer pageSize) {
         pageNum = pageNum == null ? SystemConstant.PAGE_NUM : pageNum;
@@ -53,7 +53,7 @@ public class CarBaseInfoController extends BaseController {
 
     @ApiOperation(value = "发布和编辑车辆信息")
     @PostMapping("/saveCarInfo")
-    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) CarBaseInfoVo carBaseInfo) throws BusinessException {
+    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarBaseInfoVo carBaseInfo) throws BusinessException {
         carBaseInfoService.saveInfo(carBaseInfo, "");
         return R.ok("");
     }

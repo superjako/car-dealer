@@ -29,7 +29,7 @@ public class CarShopController extends BaseController {
 
     @ApiOperation(value = "店铺注册")
     @PostMapping("/saveShopInfo")
-    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) CarShop carShop,
+    public R saveCarInfo(@ApiParam(value = "车辆信息", required = true) @RequestBody CarShop carShop,
                          @ApiParam(value = "图片id(格式：id,id,id...)", required = true) @RequestParam(name = "imgs") String imgs) throws Exception {
         carShopService.saveInfo(carShop, imgs, "");
         return R.ok("");
