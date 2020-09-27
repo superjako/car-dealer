@@ -26,7 +26,7 @@ public class CarInfoQueryVo {
     private String type;
 
     //页码
-    private Integer pageNum;
+    private Integer pageNum ;
 
     //条数
     private Integer pageSize;

@@ -41,10 +41,10 @@ public class CarBaseInfoController extends BaseController {
     @ApiOperation(value = "分页查询", notes = "分页查询接口")
     @GetMapping("/selectPageList")
     public R selectPageList(
-            @ApiParam("查询条件实体对象") @RequestBody(required = false) CarInfoQueryVo vo) {
-        if (vo.getPageNum() == null) vo.setPageNum(SystemConstant.PAGE_NUM);
-        if (vo.getPageSize() == null) vo.setPageSize(SystemConstant.PAGE_SIZE);
-        return R.ok(carBaseInfoService.selectCarInfoPage(new Page<>(vo.getPageNum(), vo.getPageSize()), vo));
+            @RequestBody(required = false) CarInfoQueryVo vo, @RequestParam(required = false) Integer pageNum, @RequestParam(required = false) Integer pageSize) {
+        pageNum = pageNum == null ? SystemConstant.PAGE_NUM : pageNum;
+        pageSize = pageSize == null ? SystemConstant.PAGE_SIZE : pageSize;
+        return R.ok(carBaseInfoService.selectCarInfoPage(new Page<>(pageNum, pageSize), vo));
     }
 
     @ApiOperation(value = "发布和编辑车辆信息")
