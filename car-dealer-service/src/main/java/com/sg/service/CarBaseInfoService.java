@@ -7,6 +7,7 @@ import com.sg.bean.*;
 import com.sg.bean.vo.CarBaseInfoVo;
 import com.sg.bean.vo.CarInfoQueryVo;
 import com.sg.exception.BusinessException;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -25,7 +26,13 @@ public interface CarBaseInfoService extends IService<CarBaseInfo> {
      * @param record
      * @return
      */
-    IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page, CarInfoQueryVo record);
+    IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page,   String brandId,
+                                           String shopId,
+                                           String type,
+                                           Integer startPrice,
+                                           Integer endPrice,
+                                           Integer startFirstPay,
+                                           Integer endFirstPay);
 
     /**
      * 保存车辆信息

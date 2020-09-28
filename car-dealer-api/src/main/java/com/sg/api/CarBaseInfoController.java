@@ -4,6 +4,7 @@ package com.sg.api;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sg.BaseController;
+import com.sg.bean.CarBaseInfo;
 import com.sg.bean.vo.CarBaseInfoVo;
 import com.sg.bean.vo.CarInfoQueryVo;
 import com.sg.constant.SystemConstant;
@@ -34,16 +35,23 @@ public class CarBaseInfoController extends BaseController {
     /**
      * 分页查询数据
      *
-     * @param vo :筛选条件实体类对象
      * @return
      */
     @ApiOperation(value = "分页查询", notes = "分页查询接口")
-    @PostMapping("/selectPageList")
+    @GetMapping("/selectPageList")
     public R selectPageList(
-            @RequestBody(required = false) CarInfoQueryVo vo, @RequestParam(required = false) Integer pageNum, @RequestParam(required = false) Integer pageSize) {
-        pageNum = pageNum == null ? SystemConstant.PAGE_NUM : pageNum;
-        pageSize = pageSize == null ? SystemConstant.PAGE_SIZE : pageSize;
-        return R.ok(carBaseInfoService.selectCarInfoPage(new Page<>(pageNum, pageSize), vo));
+            @RequestParam(required = false) String brandId,
+            @RequestParam(required = false) String shopId,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) Integer startPrice,
+            @RequestParam(required = false) Integer endPrice,
+            @RequestParam(required = false) Integer startFirstPay,
+            @RequestParam(required = false) Integer endFirstPay,
+            @RequestParam(required = false) Integer pageNum,
+            @RequestParam(required = false) Integer pageSize) {
+        if (pageNum == null) pageNum = SystemConstant.PAGE_NUM;
+        if (pageSize == null) pageSize = SystemConstant.PAGE_SIZE;
+        return R.ok(carBaseInfoService.selectCarInfoPage(new Page<>(pageNum, pageSize), brandId, shopId, type, startPrice, endPrice, startFirstPay, endFirstPay));
     }
 
     @ApiOperation(value = "发布和编辑车辆信息")

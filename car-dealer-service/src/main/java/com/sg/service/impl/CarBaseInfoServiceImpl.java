@@ -52,7 +52,15 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
     CarAttachService carAttachService;
 
     @Override
-    public IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page, CarInfoQueryVo record) {
+    public IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page, String brandId, String shopId, String type, Integer startPrice, Integer endPrice, Integer startFirstPay, Integer endFirstPay) {
+        CarInfoQueryVo record = new CarInfoQueryVo();
+        record.setBrandId(brandId);
+        record.setShopId(shopId);
+        record.setType(type);
+        record.setStartPrice(startPrice);
+        record.setEndPrice(endPrice);
+        record.setStartFirstPay(startFirstPay);
+        record.setEndFirstPay(endFirstPay);
         IPage<CarBaseInfoVo> pageDto = carBaseInfoMapper.selectCarInfoPage(page, record);
         for (int i = 0; i < pageDto.getRecords().size(); i++) {
             String id = pageDto.getRecords().get(i).getId();
