@@ -38,7 +38,7 @@ public class CarBaseInfoController extends BaseController {
      * @return
      */
     @ApiOperation(value = "分页查询", notes = "分页查询接口")
-    @GetMapping("/selectPageList")
+    @PostMapping("/selectPageList")
     public R selectPageList(
             @RequestBody(required = false) CarInfoQueryVo vo, @RequestParam(required = false) Integer pageNum, @RequestParam(required = false) Integer pageSize) {
         pageNum = pageNum == null ? SystemConstant.PAGE_NUM : pageNum;
