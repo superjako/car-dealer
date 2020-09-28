@@ -4,7 +4,6 @@ package com.sg.api;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sg.BaseController;
-import com.sg.bean.CarBaseInfo;
 import com.sg.bean.vo.CarBaseInfoVo;
 import com.sg.bean.vo.CarInfoQueryVo;
 import com.sg.constant.SystemConstant;
