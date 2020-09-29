@@ -62,14 +62,14 @@ public class CarBaseInfoController extends BaseController {
     }
 
     @ApiOperation(value = "删除车辆信息")
-    @PostMapping("/deleteInfo")
+    @DeleteMapping("/deleteInfo")
     public R deleteInfo(@ApiParam(value = "车辆信息id", required = true) @RequestParam String id) throws Exception {
         carBaseInfoService.deleteInfo(id, "");
         return R.ok("");
     }
 
     @ApiOperation(value = "车辆详情信息")
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public R detail(@ApiParam(value = "车辆信息id", required = true) @RequestParam String id) throws Exception {
         CarBaseInfoVo detail = carBaseInfoService.detail(id);
         return R.ok(detail);
