@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(tags = "店铺注册")
 @RestController
-@RequestMapping("/carShop")
+@RequestMapping("/api/carShop")
 public class CarShopController extends BaseController {
     @Autowired
     CarShopService carShopService;
