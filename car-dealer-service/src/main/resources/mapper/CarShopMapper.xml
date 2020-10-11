@@ -25,4 +25,21 @@
         ID, USER_ID, USER_NAME, PHONE, SHOP_NAME, PROVINCE, CITY, AREA, ADDRESS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
     </sql>
 
+    <resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.sg.bean.vo.CarShopVo">
+
+    </resultMap>
+
+    <!--分页查询-->
+    <select id="selectShopInfoPage" resultMap="BaseResultMapVo">
+        select
+        <include refid="Base_Column_List"></include>
+        from TB_CAR_SHOP a
+        <where>
+            a.status = 1
+            <if test="record != null">
+
+            </if>
+        </where>
+        order by a.CREATEDATE desc
+    </select>
 </mapper>

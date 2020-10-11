@@ -1,10 +1,16 @@
 package com.sg.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sg.bean.CarAttach;
+import com.sg.bean.CarBaseInfo;
 import com.sg.bean.CarShop;
+import com.sg.bean.vo.CarBaseInfoVo;
+import com.sg.bean.vo.CarInfoQueryVo;
+import com.sg.bean.vo.CarShopVo;
 import com.sg.mapper.CarShopMapper;
 import com.sg.service.CarAttachService;
 import com.sg.service.CarShopService;
@@ -29,6 +35,9 @@ import java.util.List;
 public class CarShopServiceImpl extends ServiceImpl<CarShopMapper, CarShop> implements CarShopService {
     @Autowired
     CarAttachService carAttachService;
+
+    @Autowired
+    CarShopMapper carShopMapper;
 
     @Override
     public void saveInfo(CarShop carShop, String imgs, String userId) throws Exception {
@@ -62,5 +71,20 @@ public class CarShopServiceImpl extends ServiceImpl<CarShopMapper, CarShop> impl
         carAttachService.remove(lambdaQuery);
 
         carAttachService.saveBatch(carAttaches);
+    }
+
+    @Override
+    public IPage<CarShopVo> selectShopInfoPage(Page<CarShop> page) {
+        CarInfoQueryVo record = new CarInfoQueryVo();
+        IPage<CarShopVo> pageDto = carShopMapper.selectShopInfoPage(page, record);
+        for (int i = 0; i < pageDto.getRecords().size(); i++) {
+            String id = pageDto.getRecords().get(i).getId();
+            //根据id查询图片信息
+            LambdaQueryWrapper<CarAttach> lambdaQuery = Wrappers.lambdaQuery();
+            lambdaQuery.eq(CarAttach::getBaseInfoId, id);
+            List<CarAttach> carAttachList = carAttachService.list(lambdaQuery);
+            pageDto.getRecords().get(i).setShopPictureList(carAttachList);
+        }
+        return pageDto;
     }
 }
