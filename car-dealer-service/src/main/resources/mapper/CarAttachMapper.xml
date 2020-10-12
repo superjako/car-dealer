@@ -8,6 +8,7 @@
         <result column="BASE_INFO_ID" property="baseInfoId" />
         <result column="FILEPATH" property="filepath" />
         <result column="FILENAME" property="filename" />
+        <result column="FILETYPE" property="filetype" />
         <result column="STATUS" property="status" />
         <result column="CREATER" property="creater" />
         <result column="CREATEDATE" property="createdate" />
@@ -17,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, BASE_INFO_ID, FILEPATH, FILENAME, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
+        ID, BASE_INFO_ID, FILEPATH, FILENAME,FILETYPE, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
     </sql>
 
 </mapper>

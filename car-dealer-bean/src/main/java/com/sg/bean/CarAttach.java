@@ -52,6 +52,12 @@ public class CarAttach implements Serializable {
     private String filename;
 
     /**
+     * 文件类型 0:图片或文件 1：视频
+     */
+    @TableField("FILETYPE")
+    private String filetype;
+
+    /**
      * 有效性 0：无效 1：有效
      */
     @TableField("STATUS")

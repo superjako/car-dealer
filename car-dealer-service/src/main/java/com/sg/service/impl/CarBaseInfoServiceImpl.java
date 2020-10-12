@@ -157,25 +157,53 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
             this.updateById(carBaseInfo);
         }
 
-        List<CarAttach> carAttaches = new ArrayList<>();
-        //保存数据到附件信息表
-        String[] imgArr = carBaseInfo.getImgs().split(",");
-        for (String s : imgArr) {
-            CarAttach carAttach = new CarAttach();
-            carAttach.setBaseInfoId(carBaseInfo.getId());
-            carAttach.setCreatedate(createDate);
-            carAttach.setCreater("");
-            carAttach.setFilepath(s);
-            carAttaches.add(carAttach);
+        if (!StringUtils.isBlank(carBaseInfo.getImgs())) {
+            List<CarAttach> carAttaches = new ArrayList<>();
+            //保存数据到附件信息表
+            String[] imgArr = carBaseInfo.getImgs().split(",");
+            for (String s : imgArr) {
+                CarAttach carAttach = new CarAttach();
+                carAttach.setBaseInfoId(carBaseInfo.getId());
+                carAttach.setCreatedate(createDate);
+                carAttach.setCreater("");
+                carAttach.setFilepath(s);
+                carAttach.setFiletype("0");
+                carAttaches.add(carAttach);
+            }
+
+            LambdaQueryWrapper<CarAttach> lambdaQuery = Wrappers.lambdaQuery();
+            lambdaQuery.eq(CarAttach::getBaseInfoId, carBaseInfo.getId())
+                    .eq(CarAttach::getFiletype, "0");
+
+            //先删除
+            carAttachService.remove(lambdaQuery);
+
+            carAttachService.saveBatch(carAttaches);
         }
 
-        LambdaQueryWrapper<CarAttach> lambdaQuery = Wrappers.lambdaQuery();
-        lambdaQuery.eq(CarAttach::getBaseInfoId, carBaseInfo.getId());
+        if (!StringUtils.isBlank(carBaseInfo.getVideos())) {
+            List<CarAttach> carAttaches = new ArrayList<>();
+            //保存数据到附件信息表
+            String[] imgArr = carBaseInfo.getVideos().split(",");
+            for (String s : imgArr) {
+                CarAttach carAttach = new CarAttach();
+                carAttach.setBaseInfoId(carBaseInfo.getId());
+                carAttach.setCreatedate(createDate);
+                carAttach.setCreater("");
+                carAttach.setFilepath(s);
+                carAttach.setFiletype("1");
+                carAttaches.add(carAttach);
+            }
 
-        //先删除
-        carAttachService.remove(lambdaQuery);
+            LambdaQueryWrapper<CarAttach> lambdaQuery = Wrappers.lambdaQuery();
+            lambdaQuery.eq(CarAttach::getBaseInfoId, carBaseInfo.getId())
+                    .eq(CarAttach::getFiletype, "1");
 
-        carAttachService.saveBatch(carAttaches);
+            //先删除
+            carAttachService.remove(lambdaQuery);
+
+            carAttachService.saveBatch(carAttaches);
+        }
     }
 
     @Override
@@ -199,10 +227,17 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
 
         //查询图片信息
         LambdaQueryWrapper<CarAttach> lambdaQuery = Wrappers.lambdaQuery();
-        lambdaQuery.eq(CarAttach::getBaseInfoId, carBaseInfo.getId());
+        lambdaQuery.eq(CarAttach::getBaseInfoId, carBaseInfo.getId())
+                .eq(CarAttach::getFiletype, "0");
         List<CarAttach> carAttachList = carAttachService.list(lambdaQuery);
-
         carBaseInfoVo.setCarPictureList(carAttachList);
+
+        //查询视频信息
+        LambdaQueryWrapper<CarAttach> lambdaQuery1 = Wrappers.lambdaQuery();
+        lambdaQuery1.eq(CarAttach::getBaseInfoId, carBaseInfo.getId())
+                .eq(CarAttach::getFiletype, "1");
+        List<CarAttach> carAttachList1 = carAttachService.list(lambdaQuery1);
+        carBaseInfoVo.setCarVideoList(carAttachList1);
         return carBaseInfoVo;
     }
 }
