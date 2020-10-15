@@ -57,6 +57,12 @@ public class CarShop implements Serializable {
     private String shopName;
 
     /**
+     * 店铺logo
+     */
+    @TableField("LOGO")
+    private String logo;
+
+    /**
      * 所在省
      */
     @TableField("PROVINCE")
