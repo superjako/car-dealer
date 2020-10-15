@@ -35,7 +35,7 @@ public class CarBrandController extends BaseController {
     @GetMapping("/listBrand")
     public R ListBrand() {
         LambdaQueryWrapper<CarBrand> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.orderByAsc(CarBrand::getCode).eq(CarBrand::getStatus, SystemConstant.NORMAL);
+        queryWrapper.orderByAsc(CarBrand::getFirstLetter).eq(CarBrand::getStatus, SystemConstant.NORMAL);
         List<CarBrand> carBrands = carBrandService.list(queryWrapper);
         return R.ok(carBrands);
     }

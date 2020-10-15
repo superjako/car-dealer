@@ -16,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sunpeng
- * @since 2020-09-11
+ * @since 2020-10-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -33,13 +33,22 @@ public class CarBrand implements Serializable {
     private String id;
 
     /**
+     * 首字母
+     */
+    @TableField("FIRST_LETTER")
+    private String firstLetter;
+
+    /**
      * 品牌名称
      */
-    @TableField("NAME")
-    private String name;
+    @TableField("BRAND_NAME")
+    private String brandName;
 
-    @TableField("CODE")
-    private String code;
+    /**
+     * 品牌图片
+     */
+    @TableField("BRAND_LOGO")
+    private String brandLogo;
 
     /**
      * 有效性 0：无效 1：有效

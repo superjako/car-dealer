@@ -9,7 +9,7 @@ import com.sg.bean.CarBrand;
  * </p>
  *
  * @author sunpeng
- * @since 2020-09-11
+ * @since 2020-10-15
  */
 public interface CarBrandService extends IService<CarBrand> {
 
