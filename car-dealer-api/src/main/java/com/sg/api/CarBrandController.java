@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Api(tags = "车辆品牌管理")
 @RestController
-@RequestMapping("/carBrand")
+@RequestMapping("/api/carBrand")
 public class CarBrandController extends BaseController {
     @Autowired
     CarBrandService carBrandService;
