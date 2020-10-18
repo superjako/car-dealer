@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sg.mapper.CarBaseInfoMapper">
+
+    <resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.sg.bean.vo.CarBaseInfoVo">
+
+    </resultMap>
+
+    <!--分页查询-->
+    <select id="selectCarInfoPage" resultMap="BaseResultMapVo">
+        select
+        <include refid="Base_Column_List"></include>
+        from TB_CAR_BASE_INFO a
+        <where>
+            a.status = 1
+            <if test="record != null">
+                <if test="record.shopId != null and record.shopId != ''">
+                    and a.shop_id = #{record.shop_id}
+                </if>
+                <if test="record.brandId != null and record.brandId != ''">
+                    and a.BRAND_ID = #{record.brandId}
+                </if>
+                <if test="record.startPrice != null and record.startPrice != ''">
+                    and a.PRICE &gt;= #{record.startPrice}
+                </if>
+                <if test="record.endPrice != null and record.endPrice != ''">
+                    and a.PRICE &lt;= #{record.endPrice}
+                </if>
+                <if test="record.startFirstPay != null and record.startFirstPay != ''">
+                    and a.FIRST_PAY &gt;= #{record.startFirstPay}
+                </if>
+                <if test="record.endFirstPay != null and record.endFirstPay != ''">
+                    and a.FIRST_PAY &lt;= #{record.endFirstPay}
+                </if>
+                <if test="record.type != null and record.type != ''">
+                    and a.TYPE = #{record.type}
+                </if>
+            </if>
+        </where>
+        order by a.CREATEDATE desc
+    </select>
+</mapper>

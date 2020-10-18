@@ -4,66 +4,33 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.sg.bean.CarBaseInfo">
-        <id column="ID" property="id"/>
-        <result column="SHOP_ID" property="shopId"/>
-        <result column="NAME" property="name"/>
-        <result column="BRAND_ID" property="brandId"/>
-        <result column="PRICE" property="price"/>
-        <result column="GUIDE_PRICE" property="guidePrice"/>
-        <result column="FIRST_PAY" property="firstPay"/>
-        <result column="MONTH_PAY" property="monthPay"/>
-        <result column="STAGE" property="stage"/>
-        <result column="MILE" property="mile"/>
-        <result column="TRANSFER_NUM" property="transferNum"/>
-        <result column="TYPE" property="type"/>
-        <result column="SALE_STATUS" property="saleStatus"/>
-        <result column="STATUS" property="status"/>
-        <result column="CREATER" property="creater"/>
-        <result column="CREATEDATE" property="createdate"/>
-        <result column="UPDATER" property="updater"/>
-        <result column="UPDATEDATE" property="updatedate"/>
+        <id column="ID" property="id" />
+        <result column="SHOP_ID" property="shopId" />
+        <result column="BRAND_ID" property="brandId" />
+        <result column="NAME" property="name" />
+        <result column="PRICE" property="price" />
+        <result column="GUIDE_PRICE" property="guidePrice" />
+        <result column="CAR_AGE" property="carAge" />
+        <result column="WHOLESALE_PRICE" property="wholesalePrice" />
+        <result column="OPERATION_TIME" property="operationTime" />
+        <result column="IS_SALE_ACCOMPANY" property="isSaleAccompany" />
+        <result column="FIRST_PAY" property="firstPay" />
+        <result column="MONTH_PAY" property="monthPay" />
+        <result column="STAGE" property="stage" />
+        <result column="MILE" property="mile" />
+        <result column="TRANSFER_NUM" property="transferNum" />
+        <result column="TYPE" property="type" />
+        <result column="SALE_STATUS" property="saleStatus" />
+        <result column="STATUS" property="status" />
+        <result column="CREATER" property="creater" />
+        <result column="CREATEDATE" property="createdate" />
+        <result column="UPDATER" property="updater" />
+        <result column="UPDATEDATE" property="updatedate" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, SHOP_ID, NAME,BRAND_ID, PRICE, GUIDE_PRICE, FIRST_PAY, MONTH_PAY, STAGE, MILE, TRANSFER_NUM, TYPE, SALE_STATUS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
+        ID, SHOP_ID, BRAND_ID, NAME, PRICE, GUIDE_PRICE, CAR_AGE, WHOLESALE_PRICE, OPERATION_TIME, IS_SALE_ACCOMPANY, FIRST_PAY, MONTH_PAY, STAGE, MILE, TRANSFER_NUM, TYPE, SALE_STATUS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
     </sql>
 
-    <resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.sg.bean.vo.CarBaseInfoVo">
-
-    </resultMap>
-
-    <!--分页查询-->
-    <select id="selectCarInfoPage" resultMap="BaseResultMapVo">
-        select
-        <include refid="Base_Column_List"></include>
-        from TB_CAR_BASE_INFO a
-        <where>
-            a.status = 1
-            <if test="record != null">
-                <if test="record.shopId != null and record.shopId != ''">
-                    and a.shop_id = #{record.shop_id}
-                </if>
-                <if test="record.brandId != null and record.brandId != ''">
-                    and a.BRAND_ID = #{record.brandId}
-                </if>
-                <if test="record.startPrice != null and record.startPrice != ''">
-                    and a.PRICE &gt;= #{record.startPrice}
-                </if>
-                <if test="record.endPrice != null and record.endPrice != ''">
-                    and a.PRICE &lt;= #{record.endPrice}
-                </if>
-                <if test="record.startFirstPay != null and record.startFirstPay != ''">
-                    and a.FIRST_PAY &gt;= #{record.startFirstPay}
-                </if>
-                <if test="record.endFirstPay != null and record.endFirstPay != ''">
-                    and a.FIRST_PAY &lt;= #{record.endFirstPay}
-                </if>
-                <if test="record.type != null and record.type != ''">
-                    and a.TYPE = #{record.type}
-                </if>
-            </if>
-        </where>
-        order by a.CREATEDATE desc
-    </select>
 </mapper>

@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
  * </p>
  *
  * @author sunpeng
- * @since 2020-09-21
+ * @since 2020-10-18
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -40,16 +41,16 @@ public class CarBaseInfo implements Serializable {
     private String shopId;
 
     /**
-     * 商品标题
-     */
-    @TableField("NAME")
-    private String name;
-
-    /**
      * 品牌id
      */
     @TableField("BRAND_ID")
     private String brandId;
+
+    /**
+     * 商品标题
+     */
+    @TableField("NAME")
+    private String name;
 
     /**
      * 车辆价格
@@ -62,6 +63,30 @@ public class CarBaseInfo implements Serializable {
      */
     @TableField("GUIDE_PRICE")
     private BigDecimal guidePrice;
+
+    /**
+     * 车龄
+     */
+    @TableField("CAR_AGE")
+    private BigDecimal carAge;
+
+    /**
+     * 批发价
+     */
+    @TableField("WHOLESALE_PRICE")
+    private BigDecimal wholesalePrice;
+
+    /**
+     * 运营时间
+     */
+    @TableField("OPERATION_TIME")
+    private LocalDateTime operationTime;
+
+    /**
+     * 是否卖同行
+     */
+    @TableField("IS_SALE_ACCOMPANY")
+    private String isSaleAccompany;
 
     /**
      * 首付
