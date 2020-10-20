@@ -7,6 +7,7 @@
         <id column="ID" property="id" />
         <result column="SHOP_ID" property="shopId" />
         <result column="BRAND_ID" property="brandId" />
+        <result column="SERIES_ID" property="seriesId" />
         <result column="NAME" property="name" />
         <result column="PRICE" property="price" />
         <result column="GUIDE_PRICE" property="guidePrice" />
@@ -30,7 +31,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, SHOP_ID, BRAND_ID, NAME, PRICE, GUIDE_PRICE, CAR_AGE, WHOLESALE_PRICE, OPERATION_TIME, IS_SALE_ACCOMPANY, FIRST_PAY, MONTH_PAY, STAGE, MILE, TRANSFER_NUM, TYPE, SALE_STATUS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
+        ID, SHOP_ID, BRAND_ID, SERIES_ID,NAME, PRICE, GUIDE_PRICE, CAR_AGE, WHOLESALE_PRICE, OPERATION_TIME, IS_SALE_ACCOMPANY, FIRST_PAY, MONTH_PAY, STAGE, MILE, TRANSFER_NUM, TYPE, SALE_STATUS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
     </sql>
 
 </mapper>
