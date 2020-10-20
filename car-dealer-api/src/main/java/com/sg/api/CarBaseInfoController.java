@@ -65,8 +65,12 @@ public class CarBaseInfoController extends BaseController {
             @RequestParam(required = false) Integer endFirstPay,
             @RequestParam(required = false) Integer pageNum,
             @RequestParam(required = false) Integer pageSize) {
-        if (pageNum == null) pageNum = SystemConstant.PAGE_NUM;
-        if (pageSize == null) pageSize = SystemConstant.PAGE_SIZE;
+        if (pageNum == null) {
+            pageNum = SystemConstant.PAGE_NUM;
+        }
+        if (pageSize == null) {
+            pageSize = SystemConstant.PAGE_SIZE;
+        }
         return R.ok(carBaseInfoService.selectCarInfoPage(new Page<>(pageNum, pageSize), brandId, shopId, type, startPrice, endPrice, startFirstPay, endFirstPay));
     }
 
@@ -201,7 +205,7 @@ public class CarBaseInfoController extends BaseController {
             Object object = jo.get("cars");
             JSONArray jsonObject1 = JSONArray.parseArray(object.toString());
             for (Object o : jsonObject1) {
-                JSONObject object1=  JSONObject.parseObject(o.toString());
+                JSONObject object1 = JSONObject.parseObject(o.toString());
 
                 JSONArray jsonArr = JSONArray.parseArray(object1.getString("typeList"));
 
