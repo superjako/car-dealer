@@ -1,6 +1,5 @@
 package com.sg.api;
 
-
 import com.alibaba.cloudapi.sdk.model.ApiCallback;
 import com.alibaba.cloudapi.sdk.model.ApiRequest;
 import com.alibaba.cloudapi.sdk.model.ApiResponse;
