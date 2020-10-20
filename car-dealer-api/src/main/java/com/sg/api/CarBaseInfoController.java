@@ -174,12 +174,6 @@ public class CarBaseInfoController extends BaseController {
     @ApiOperation(value = "根据品牌导入车系")
     @GetMapping("/importCarSeries")
     public R importCarSeries() throws Exception {
-        /* HttpClientBuilderParams httpParam = new HttpClientBuilderParams();
-        httpParam.setAppKey("203867310");
-        httpParam.setAppSecret("R0m2tWsfE7OlN0HMqJFKXJJ2FBkSb4NA");
-        HttpApiClientFinance_car.getInstance().init(httpParam);*/
-
-
         //HTTPS Client init
         HttpClientBuilderParams httpsParam = new HttpClientBuilderParams();
         httpsParam.setAppKey("203867310");
