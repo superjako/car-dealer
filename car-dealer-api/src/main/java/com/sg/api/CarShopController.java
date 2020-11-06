@@ -51,4 +51,14 @@ public class CarShopController extends BaseController {
         if (pageSize == null) pageSize = SystemConstant.PAGE_SIZE;
         return R.ok(carShopService.selectShopInfoPage(new Page<>(pageNum, pageSize)));
     }
+
+    @PostMapping("/login")
+    @ApiOperation("登录")
+    public R<CarShopVo> login(
+            @ApiParam("用户名") @RequestParam(required = true) String username,
+            @ApiParam("密码") @RequestParam(required = true) String password) throws Exception {
+
+        CarShopVo userVo = carShopService.login(username, password);
+        return R.ok(userVo);
+    }
 }

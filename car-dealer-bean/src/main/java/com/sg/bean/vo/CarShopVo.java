@@ -13,4 +13,6 @@ public class CarShopVo extends CarShop {
 
     //店铺图片信息
     private List<CarAttach> shopPictureList;
+
+    private String loginToken;
 }

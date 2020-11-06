@@ -34,4 +34,13 @@ public interface CarShopService extends IService<CarShop> {
      * @return
      */
     IPage<CarShopVo> selectShopInfoPage(Page<CarShop> page);
+
+    /**
+     * 登录
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    CarShopVo login(String username, String password) throws Exception;
 }
