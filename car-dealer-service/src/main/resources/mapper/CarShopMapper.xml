@@ -8,9 +8,11 @@
         <result column="USER_ID" property="userId" />
         <result column="USER_NAME" property="userName" />
         <result column="PHONE" property="phone" />
+        <result column="PASSWORD" property="password" />
+        <result column="USER_ROLE" property="userRole" />
         <result column="SHOP_NAME" property="shopName" />
-        <result column="PROVINCE" property="province" />
         <result column="LOGO" property="logo" />
+        <result column="PROVINCE" property="province" />
         <result column="CITY" property="city" />
         <result column="AREA" property="area" />
         <result column="ADDRESS" property="address" />
@@ -23,7 +25,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, USER_ID, USER_NAME, PHONE, SHOP_NAME,LOGO, PROVINCE, CITY, AREA, ADDRESS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
+        ID, USER_ID, USER_NAME, PHONE, PASSWORD, USER_ROLE, SHOP_NAME, LOGO, PROVINCE, CITY, AREA, ADDRESS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
     </sql>
 
     <resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.sg.bean.vo.CarShopVo">

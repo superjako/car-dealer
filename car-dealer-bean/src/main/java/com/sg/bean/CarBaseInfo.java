@@ -87,12 +87,10 @@ public class CarBaseInfo implements Serializable {
     private BigDecimal wholesalePrice;
 
     /**
-     * 运营时间
+     * 运营年限
      */
     @TableField("OPERATION_TIME")
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime operationTime;
+    private BigDecimal operationTime;
 
     /**
      * 是否卖同行

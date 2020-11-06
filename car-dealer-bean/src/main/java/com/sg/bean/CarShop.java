@@ -16,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sunpeng
- * @since 2020-09-27
+ * @since 2020-11-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -27,7 +27,7 @@ public class CarShop implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键id
+     * 主键ID
      */
     @TableId(value = "ID", type = IdType.UUID)
     private String id;
@@ -51,13 +51,25 @@ public class CarShop implements Serializable {
     private String phone;
 
     /**
+     * 密码
+     */
+    @TableField("PASSWORD")
+    private String password;
+
+    /**
+     * 用户角色 0：管理员 1：普通用户
+     */
+    @TableField("USER_ROLE")
+    private String userRole;
+
+    /**
      * 店铺名称
      */
     @TableField("SHOP_NAME")
     private String shopName;
 
     /**
-     * 店铺logo
+     * 商铺图片
      */
     @TableField("LOGO")
     private String logo;
