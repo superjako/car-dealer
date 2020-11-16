@@ -55,10 +55,9 @@ public class CarShopController extends BaseController {
     @PostMapping("/login")
     @ApiOperation("登录")
     public R<CarShopVo> login(
-            @ApiParam("用户名") @RequestParam(required = true) String username,
-            @ApiParam("密码") @RequestParam(required = true) String password) throws Exception {
+            @ApiParam("用户名") @RequestBody CarShopVo carShop) throws Exception {
 
-        CarShopVo userVo = carShopService.login(username, password);
+        CarShopVo userVo = carShopService.login(carShop.getUserName(), carShop.getPassword());
         return R.ok(userVo);
     }
 }
