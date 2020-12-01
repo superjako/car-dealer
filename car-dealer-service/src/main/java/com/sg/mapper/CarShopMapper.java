@@ -7,8 +7,11 @@ import com.sg.bean.CarBaseInfo;
 import com.sg.bean.CarShop;
 import com.sg.bean.vo.CarBaseInfoVo;
 import com.sg.bean.vo.CarInfoQueryVo;
+import com.sg.bean.vo.CarSaleInfoVo;
 import com.sg.bean.vo.CarShopVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -27,4 +30,12 @@ public interface CarShopMapper extends BaseMapper<CarShop> {
      * @return
      */
     IPage<CarShopVo> selectShopInfoPage(Page<CarShop> page, @Param("record") CarInfoQueryVo record);
+
+    /**
+     * 根据店铺id查询车辆销售数量
+     *
+     * @param shopId
+     * @return
+     */
+    List<CarSaleInfoVo> selectCarSaleInfoByShopId(@Param("shopId") String shopId);
 }

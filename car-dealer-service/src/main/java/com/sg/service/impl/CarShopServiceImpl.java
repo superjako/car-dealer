@@ -3,6 +3,7 @@ package com.sg.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,6 +12,7 @@ import com.sg.bean.CarBaseInfo;
 import com.sg.bean.CarShop;
 import com.sg.bean.vo.CarBaseInfoVo;
 import com.sg.bean.vo.CarInfoQueryVo;
+import com.sg.bean.vo.CarSaleInfoVo;
 import com.sg.bean.vo.CarShopVo;
 import com.sg.constant.SystemConstant;
 import com.sg.exception.BusinessException;
@@ -19,6 +21,7 @@ import com.sg.redis.RedisUtil;
 import com.sg.service.CarAttachService;
 import com.sg.service.CarShopService;
 import com.sg.util.UUIDUtil;
+import org.apache.commons.lang.StringUtils;
 import org.assertj.core.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -47,6 +51,7 @@ public class CarShopServiceImpl extends ServiceImpl<CarShopMapper, CarShop> impl
 
     @Autowired
     private RedisUtil redisUtil;
+
 
     @Override
     public void saveInfo(CarShop carShop, String imgs, String userId) throws Exception {
@@ -127,5 +132,28 @@ public class CarShopServiceImpl extends ServiceImpl<CarShopMapper, CarShop> impl
         BeanUtils.copyProperties(user, userVo);
         //userVo.setLoginToken(LOGIN_TOKEN);
         return userVo;
+    }
+
+    @Override
+    public CarSaleInfoVo selectCarSaleInfoByShopId(String shopId) throws BusinessException {
+        CarSaleInfoVo carSaleInfoVo = new CarSaleInfoVo();
+        List<CarSaleInfoVo> carSaleInfoVos = carShopMapper.selectCarSaleInfoByShopId(shopId);
+        //获取在售数量
+        List<CarSaleInfoVo> onSaleCountlist = carSaleInfoVos.stream().filter(t -> t.getSaleStatus().equals("1")).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(onSaleCountlist)) {
+            carSaleInfoVo.setOnSaleCount(onSaleCountlist.get(0).getCarCount());
+        }
+        //获取已售数量
+        List<CarSaleInfoVo> soldCountlist = carSaleInfoVos.stream().filter(t -> t.getSaleStatus().equals("2")).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(soldCountlist)) {
+            carSaleInfoVo.setSoldCount(soldCountlist.get(0).getCarCount());
+        }
+
+        //根据店铺id查询店铺注册年份
+        CarShop carShop = carShopMapper.selectById(shopId);
+        if (ObjectUtils.isNotEmpty(carShop) && carShop.getShopYear() != null) {
+            carSaleInfoVo.setShopYear(carShop.getShopYear());
+        }
+        return carSaleInfoVo;
     }
 }

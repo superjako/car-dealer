@@ -4,28 +4,29 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.sg.bean.CarShop">
-        <id column="ID" property="id" />
-        <result column="USER_ID" property="userId" />
-        <result column="USER_NAME" property="userName" />
-        <result column="PHONE" property="phone" />
-        <result column="PASSWORD" property="password" />
-        <result column="USER_ROLE" property="userRole" />
-        <result column="SHOP_NAME" property="shopName" />
-        <result column="LOGO" property="logo" />
-        <result column="PROVINCE" property="province" />
-        <result column="CITY" property="city" />
-        <result column="AREA" property="area" />
-        <result column="ADDRESS" property="address" />
-        <result column="STATUS" property="status" />
-        <result column="CREATER" property="creater" />
-        <result column="CREATEDATE" property="createdate" />
-        <result column="UPDATER" property="updater" />
-        <result column="UPDATEDATE" property="updatedate" />
+        <id column="ID" property="id"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="PHONE" property="phone"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="USER_ROLE" property="userRole"/>
+        <result column="SHOP_NAME" property="shopName"/>
+        <result column="SHOP_YEAR" property="shopYear"/>
+        <result column="LOGO" property="logo"/>
+        <result column="PROVINCE" property="province"/>
+        <result column="CITY" property="city"/>
+        <result column="AREA" property="area"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATER" property="creater"/>
+        <result column="CREATEDATE" property="createdate"/>
+        <result column="UPDATER" property="updater"/>
+        <result column="UPDATEDATE" property="updatedate"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, USER_ID, USER_NAME, PHONE, PASSWORD, USER_ROLE, SHOP_NAME, LOGO, PROVINCE, CITY, AREA, ADDRESS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
+        ID, USER_ID, USER_NAME, PHONE, PASSWORD, USER_ROLE, SHOP_NAME,SHOP_YEAR, LOGO, PROVINCE, CITY, AREA, ADDRESS, STATUS, CREATER, CREATEDATE, UPDATER, UPDATEDATE
     </sql>
 
     <resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.sg.bean.vo.CarShopVo">
@@ -44,5 +45,18 @@
             </if>
         </where>
         order by a.CREATEDATE desc
+    </select>
+
+    <!--根据店铺id查询车辆销售数量-->
+    <select id="selectCarSaleInfoByShopId" resultType="com.sg.bean.vo.CarSaleInfoVo" parameterType="map">
+       SELECT
+	a.SALE_STATUS saleStatus,
+	count(1) AS carCount
+        FROM
+            TB_CAR_BASE_INFO a
+        WHERE
+            a.SHOP_ID = #{shopId}
+        GROUP BY
+            a.SALE_STATUS
     </select>
 </mapper>

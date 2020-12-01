@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -67,6 +68,12 @@ public class CarShop implements Serializable {
      */
     @TableField("SHOP_NAME")
     private String shopName;
+
+    /**
+     * 车商注册年份
+     */
+    @TableField("SHOP_YEAR")
+    private Integer shopYear;
 
     /**
      * 商铺图片

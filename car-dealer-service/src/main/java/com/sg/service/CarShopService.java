@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.sg.bean.CarBaseInfo;
 import com.sg.bean.CarShop;
 import com.sg.bean.vo.CarBaseInfoVo;
+import com.sg.bean.vo.CarSaleInfoVo;
 import com.sg.bean.vo.CarShopVo;
+import com.sg.exception.BusinessException;
 
 /**
  * <p>
@@ -43,4 +45,13 @@ public interface CarShopService extends IService<CarShop> {
      * @return
      */
     CarShopVo login(String username, String password) throws Exception;
+
+    /**
+     * 根据店铺id查询车辆销售信息
+     *
+     * @param shopId
+     * @return
+     * @throws BusinessException
+     */
+    CarSaleInfoVo selectCarSaleInfoByShopId(String shopId) throws BusinessException;
 }

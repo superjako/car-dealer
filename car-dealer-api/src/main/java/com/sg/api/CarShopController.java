@@ -8,6 +8,7 @@ import com.sg.bean.CarBaseInfo;
 import com.sg.bean.CarShop;
 import com.sg.bean.vo.CarShopVo;
 import com.sg.constant.SystemConstant;
+import com.sg.exception.BusinessException;
 import com.sg.service.CarShopService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,6 +51,13 @@ public class CarShopController extends BaseController {
         if (pageNum == null) pageNum = SystemConstant.PAGE_NUM;
         if (pageSize == null) pageSize = SystemConstant.PAGE_SIZE;
         return R.ok(carShopService.selectShopInfoPage(new Page<>(pageNum, pageSize)));
+    }
+
+    @ApiOperation(value = "查询店铺车辆销售数量信息", notes = "查询店铺车辆销售数量信息")
+    @GetMapping("/selectCarSaleInfoByShopId")
+    public R selectPageList(
+            @RequestParam(required = false) String shopId) throws BusinessException {
+        return R.ok(carShopService.selectCarSaleInfoByShopId(shopId));
     }
 
     @PostMapping("/login")
