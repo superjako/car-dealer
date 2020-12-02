@@ -73,5 +73,4 @@ public class CarShopController extends BaseController {
         CarShopVo userVo = carShopService.login(carShop.getUserName(), carShop.getPassword());
         return R.ok(userVo);
     }
-
 }
