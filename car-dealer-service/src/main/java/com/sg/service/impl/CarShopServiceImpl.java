@@ -112,7 +112,7 @@ public class CarShopServiceImpl extends ServiceImpl<CarShopMapper, CarShop> impl
             throw new BusinessException("登录失败：用户名或密码错误");
         }
         CarShop user = userList.get(0);
-        if (password.equals(user.getPassword())) {
+        if (!password.equals(user.getPassword())) {
             throw new BusinessException("登录失败：用户名或密码错误");
         }
         // LOGIN TOKEN
@@ -127,7 +127,7 @@ public class CarShopServiceImpl extends ServiceImpl<CarShopMapper, CarShop> impl
             redisUtil.set(SystemConstant.CACHE_LOGIN_TOKEN + user.getId(),
                     LOGIN_TOKEN, 43200L);
         }*/
-        user.setPassword(null);
+        user.setPassword(password);
         CarShopVo userVo = new CarShopVo();
         BeanUtils.copyProperties(user, userVo);
         //userVo.setLoginToken(LOGIN_TOKEN);
