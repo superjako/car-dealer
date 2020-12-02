@@ -77,12 +77,14 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
         }
 
         //访问量统计
-        CarShop carShop = carShopService.getById(shopId);
-        if (ObjectUtils.isEmpty(carShop)) {
-            throw new BusinessException("店铺不存在！");
+        if (StringUtils.isNotEmpty(shopId)) {
+            CarShop carShop = carShopService.getById(shopId);
+            if (ObjectUtils.isEmpty(carShop)) {
+                throw new BusinessException("店铺不存在！");
+            }
+            carShop.setViewCount(carShop.getViewCount() + 1);
+            carShopService.updateById(carShop);
         }
-        carShop.setViewCount(carShop.getViewCount() + 1);
-        carShopService.updateById(carShop);
         return pageDto;
     }
 

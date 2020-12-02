@@ -139,5 +139,5 @@ public class CarShop implements Serializable {
      * 访问量
      */
     @TableField("VIEW_COUNT")
-    private String viewCount;
+    private Integer viewCount;
 }
