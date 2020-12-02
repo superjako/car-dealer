@@ -63,7 +63,7 @@ public class CarBaseInfoController extends BaseController {
             @RequestParam(required = false) Integer startFirstPay,
             @RequestParam(required = false) Integer endFirstPay,
             @RequestParam(required = false) Integer pageNum,
-            @RequestParam(required = false) Integer pageSize) {
+            @RequestParam(required = false) Integer pageSize) throws BusinessException {
         if (pageNum == null) {
             pageNum = SystemConstant.PAGE_NUM;
         }
