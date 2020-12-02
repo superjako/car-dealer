@@ -59,4 +59,27 @@
         GROUP BY
             a.SALE_STATUS
     </select>
+
+    <!--查询商家销量排行榜接口-->
+    <select id="selectShopSaleRankList" resultType="com.sg.bean.vo.CarShopVo">
+            SELECT
+                b.*, c.LOGO logo,
+                c.SHOP_NAME shopName
+            FROM
+                (
+                    SELECT
+                        a.SHOP_ID shopId,
+                        count(1) soldCount
+                    FROM
+                        TB_CAR_BASE_INFO a
+                    WHERE
+                        a.`STATUS` = '1'
+                    AND a.SALE_STATUS = '2'
+                    GROUP BY
+                        a.SHOP_ID
+                ) b
+            JOIN TB_CAR_SHOP c ON b.shopId = c.ID
+            ORDER BY
+                b.soldCount DESC
+    </select>
 </mapper>

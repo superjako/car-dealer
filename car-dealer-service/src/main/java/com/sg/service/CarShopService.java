@@ -10,6 +10,8 @@ import com.sg.bean.vo.CarSaleInfoVo;
 import com.sg.bean.vo.CarShopVo;
 import com.sg.exception.BusinessException;
 
+import java.util.List;
+
 /**
  * <p>
  * 店铺表 服务类
@@ -54,4 +56,12 @@ public interface CarShopService extends IService<CarShop> {
      * @throws BusinessException
      */
     CarSaleInfoVo selectCarSaleInfoByShopId(String shopId) throws BusinessException;
+
+    /**
+     * 查询商家销量排行榜接口
+     *
+     * @return
+     * @throws BusinessException
+     */
+    List<CarShopVo> selectShopSaleRankList() throws BusinessException;
 }

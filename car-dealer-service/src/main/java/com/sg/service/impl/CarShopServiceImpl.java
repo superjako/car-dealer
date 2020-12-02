@@ -156,4 +156,10 @@ public class CarShopServiceImpl extends ServiceImpl<CarShopMapper, CarShop> impl
         }
         return carSaleInfoVo;
     }
+
+    @Override
+    public List<CarShopVo> selectShopSaleRankList() throws BusinessException {
+        List<CarShopVo> carShopVoList = carShopMapper.selectShopSaleRankList();
+        return carShopVoList;
+    }
 }

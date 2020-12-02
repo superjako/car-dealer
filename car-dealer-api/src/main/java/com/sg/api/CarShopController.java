@@ -55,9 +55,15 @@ public class CarShopController extends BaseController {
 
     @ApiOperation(value = "查询店铺车辆销售数量信息", notes = "查询店铺车辆销售数量信息")
     @GetMapping("/selectCarSaleInfoByShopId")
-    public R selectPageList(
+    public R selectCarSaleInfoByShopId(
             @RequestParam(required = false) String shopId) throws BusinessException {
         return R.ok(carShopService.selectCarSaleInfoByShopId(shopId));
+    }
+
+    @ApiOperation(value = "查询商家销量排行榜接口", notes = "查询商家销量排行榜接口")
+    @GetMapping("/selectShopSaleRankList")
+    public R selectShopSaleRankList() throws BusinessException {
+        return R.ok(carShopService.selectShopSaleRankList());
     }
 
     @PostMapping("/login")

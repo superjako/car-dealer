@@ -38,4 +38,11 @@ public interface CarShopMapper extends BaseMapper<CarShop> {
      * @return
      */
     List<CarSaleInfoVo> selectCarSaleInfoByShopId(@Param("shopId") String shopId);
+
+    /**
+     * 查询商家销量排行榜接口
+     *
+     * @return
+     */
+    List<CarShopVo> selectShopSaleRankList();
 }

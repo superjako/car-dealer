@@ -15,4 +15,7 @@ public class CarShopVo extends CarShop {
     private List<CarAttach> shopPictureList;
 
     private String loginToken;
+
+    //已售数量
+    private Integer soldCount;
 }
