@@ -45,4 +45,11 @@ public interface CarShopMapper extends BaseMapper<CarShop> {
      * @return
      */
     List<CarShopVo> selectShopSaleRankList();
+
+    /**
+     * 查询商家规模排行榜接口
+     *
+     * @return
+     */
+    List<CarShopVo> selectShopScaleRankList();
 }

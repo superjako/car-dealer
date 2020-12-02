@@ -170,4 +170,10 @@ public class CarShopServiceImpl extends ServiceImpl<CarShopMapper, CarShop> impl
         List<CarShop> carShopList = carShopMapper.selectList(lambdaQueryWrapper);
         return carShopList;
     }
+
+    @Override
+    public List<CarShopVo> selectShopScaleRankList() throws BusinessException {
+        List<CarShopVo> carShopVoList = carShopMapper.selectShopScaleRankList();
+        return null;
+    }
 }

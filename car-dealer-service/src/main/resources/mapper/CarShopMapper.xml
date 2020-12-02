@@ -83,4 +83,25 @@
                 b.soldCount DESC
     </select>
 
+    <!--查询商家规模排行榜接口-->
+    <select id="selectShopScaleRankList" resultType="com.sg.bean.vo.CarShopVo">
+            SELECT
+                            b.*, c.LOGO logo,
+                            c.SHOP_NAME shopName
+                        FROM
+                            (
+                                SELECT
+                                    a.SHOP_ID shopId,
+                                    SUM(a.PRICE) totalPrice
+                                FROM
+                                    TB_CAR_BASE_INFO a
+                                WHERE
+                                    a.`STATUS` = '1'
+                                GROUP BY
+                                    a.SHOP_ID
+                            ) b
+                        JOIN TB_CAR_SHOP c ON b.shopId = c.ID
+                        ORDER BY
+                            b.totalPrice DESC
+    </select>
 </mapper>
