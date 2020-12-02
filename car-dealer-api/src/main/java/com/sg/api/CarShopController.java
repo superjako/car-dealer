@@ -61,6 +61,12 @@ public class CarShopController extends BaseController {
         return R.ok(carShopService.selectShopSaleRankList());
     }
 
+    @ApiOperation(value = "查询商家人气排行榜接口", notes = "查询商家人气排行榜接口")
+    @GetMapping("/selectShopViewRankList")
+    public R selectShopViewRankList() throws BusinessException {
+        return R.ok(carShopService.selectShopViewRankList());
+    }
+
     @PostMapping("/login")
     @ApiOperation("登录")
     public R<CarShopVo> login(

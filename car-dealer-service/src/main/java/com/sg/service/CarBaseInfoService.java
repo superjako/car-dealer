@@ -32,7 +32,7 @@ public interface CarBaseInfoService extends IService<CarBaseInfo> {
                                            Integer startPrice,
                                            Integer endPrice,
                                            Integer startFirstPay,
-                                           Integer endFirstPay);
+                                           Integer endFirstPay) throws BusinessException;
 
     /**
      * 保存车辆信息

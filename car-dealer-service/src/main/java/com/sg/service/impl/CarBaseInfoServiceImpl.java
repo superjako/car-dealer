@@ -2,12 +2,14 @@ package com.sg.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sg.bean.*;
 import com.sg.bean.vo.CarBaseInfoVo;
 import com.sg.bean.vo.CarInfoQueryVo;
+import com.sg.bean.vo.CarShopVo;
 import com.sg.constant.SystemConstant;
 import com.sg.exception.BusinessException;
 import com.sg.mapper.CarBaseInfoMapper;
@@ -51,8 +53,11 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
     @Autowired
     CarAttachService carAttachService;
 
+    @Autowired
+    CarShopService carShopService;
+
     @Override
-    public IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page, String brandId, String shopId, String type, Integer startPrice, Integer endPrice, Integer startFirstPay, Integer endFirstPay) {
+    public IPage<CarBaseInfoVo> selectCarInfoPage(Page<CarBaseInfo> page, String brandId, String shopId, String type, Integer startPrice, Integer endPrice, Integer startFirstPay, Integer endFirstPay) throws BusinessException {
         CarInfoQueryVo record = new CarInfoQueryVo();
         record.setBrandId(brandId);
         record.setShopId(shopId);
@@ -70,6 +75,14 @@ public class CarBaseInfoServiceImpl extends ServiceImpl<CarBaseInfoMapper, CarBa
             List<CarAttach> carAttachList = carAttachService.list(lambdaQuery);
             pageDto.getRecords().get(i).setCarPictureList(carAttachList);
         }
+
+        //访问量统计
+        CarShop carShop = carShopService.getById(shopId);
+        if (ObjectUtils.isEmpty(carShop)) {
+            throw new BusinessException("店铺不存在！");
+        }
+        carShop.setViewCount(carShop.getViewCount() + 1);
+        carShopService.updateById(carShop);
         return pageDto;
     }
 

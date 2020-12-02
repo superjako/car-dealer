@@ -82,4 +82,5 @@
             ORDER BY
                 b.soldCount DESC
     </select>
+
 </mapper>

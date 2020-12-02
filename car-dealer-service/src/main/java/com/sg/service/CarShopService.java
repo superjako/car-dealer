@@ -64,4 +64,11 @@ public interface CarShopService extends IService<CarShop> {
      * @throws BusinessException
      */
     List<CarShopVo> selectShopSaleRankList() throws BusinessException;
+
+    /**
+     * 查询商家访问量排行榜接口
+     * @return
+     * @throws BusinessException
+     */
+    List<CarShop> selectShopViewRankList() throws BusinessException;
 }

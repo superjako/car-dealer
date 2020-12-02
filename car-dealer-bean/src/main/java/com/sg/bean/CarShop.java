@@ -135,5 +135,9 @@ public class CarShop implements Serializable {
     @TableField("UPDATEDATE")
     private String updatedate;
 
-
+    /**
+     * 访问量
+     */
+    @TableField("VIEW_COUNT")
+    private String viewCount;
 }
