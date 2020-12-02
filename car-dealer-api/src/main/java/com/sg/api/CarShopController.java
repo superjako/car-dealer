@@ -38,11 +38,6 @@ public class CarShopController extends BaseController {
         return R.ok("");
     }
 
-    /**
-     * 分页查询数据
-     *
-     * @return
-     */
     @ApiOperation(value = "分页查询", notes = "分页查询接口")
     @GetMapping("/selectPageList")
     public R selectPageList(
