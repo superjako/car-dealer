@@ -15,7 +15,7 @@
             a.status = 1
             <if test="record != null">
                 <if test="record.shopId != null and record.shopId != ''">
-                    and a.shop_id = #{record.shop_id}
+                    and a.shop_id = #{record.shopId}
                 </if>
                 <if test="record.brandId != null and record.brandId != ''">
                     and a.BRAND_ID = #{record.brandId}
