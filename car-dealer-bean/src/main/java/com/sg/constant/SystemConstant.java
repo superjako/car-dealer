@@ -18,6 +18,14 @@ public class SystemConstant {
     public static final int DELETED = 0;
     public static final int NORMAL = 1;
 
+
+    /**
+     * 附件上传模块 1：发布车辆 2：注册商家 3：发表动态
+     */
+    public static final String SAVE_CAR = "1";
+    public static final String SAVE_USER = "2";
+    public static final String SAVE_TALK = "3";
+
     public static final class Code {
 
         /**
@@ -44,57 +52,6 @@ public class SystemConstant {
 
     }
 
-    /**
-     * 请求设备类型
-     */
-    public static final class DeviceType {
-        /**
-         * ios请求
-         */
-        public static final String ios = "ios";
-        /**
-         * android请求
-         */
-        public static final String android = "android";
-        /**
-         * pc端请求
-         */
-        public static final String pc = "pc";
-        /**
-         * web端请求
-         */
-        public static final String wechat = "wechat";
-    }
-
-    /**
-     * 给每个端发布的唯一标识
-     */
-    public static final class RequestKey {
-        /**
-         * ios请求
-         */
-        public static final String ios = "ZSASS1Q324343FD5FGGR4";
-        /**
-         * android请求
-         */
-        public static final String android = "AYEWMDSJ283294332";
-        /**
-         * pc端请求
-         */
-        public static final String pc = "7UJEW8EWKJIWQJSAIQI32K";
-        /**
-         * web端请求
-         */
-        public static final String wechat = "NHHJJ3EW3EWDSEDSIDSKE";
-    }
-
-    public static final class smsTemplate {
-
-        public static final String verifyCode = "【清产核资系统】您的验证码是{0}，在{1}分钟内有效。如非本人操作请忽略本短信。";
-
-        public static final String reportCode = "【清产核资系统】{0}提醒您，您的农村集体资产清产核资报表距离上报期限还有{1}天，请及时上报，以免延期！";
-
-    }
 
     /**
      * excel类型

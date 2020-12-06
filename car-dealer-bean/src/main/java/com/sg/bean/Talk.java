@@ -9,59 +9,34 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
- * 车辆附件信息
+ * 评论动态表
  * </p>
  *
  * @author sunpeng
- * @since 2020-09-11
+ * @since 2020-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("TB_CAR_ATTACH")
-public class CarAttach implements Serializable {
+@TableName("TB_TALK")
+public class Talk implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键ID
+     * 主键id
      */
     @TableId(value = "ID", type = IdType.UUID)
     private String id;
 
     /**
-     * 基本信息id
+     * 评论标题
      */
-    @TableField("BASE_INFO_ID")
-    private String baseInfoId;
-
-    /**
-     * 路径地址
-     */
-    @TableField("FILEPATH")
-    private String filepath;
-
-    /**
-     * 模块类型 1：发布车辆 2：注册商家 3：发表动态
-     */
-    @TableField("MODULE_TYPE")
-    private String moduleType;
-
-    /**
-     * 文件名
-     */
-    @TableField("FILENAME")
-    private String filename;
-
-    /**
-     * 文件类型 0:图片或文件 1：视频
-     */
-    @TableField("FILETYPE")
-    private String filetype;
+    @TableField("TITLE")
+    private String title;
 
     /**
      * 有效性 0：无效 1：有效
