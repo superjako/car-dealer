@@ -120,23 +120,11 @@ public class SignatureVerifyInterceptor implements HandlerInterceptor {
 		for (String str : keyList) {
 			sign+=str+"="+paramMap.get(str)+"&";
 		}
-		sign+="key="+getDeviceKeyByDeviceType(paramMap.get("deviceType"));
+		//sign+="key="+getDeviceKeyByDeviceType(paramMap.get("deviceType"));
 		String result = MD5Util.getMD5String(sign);
 		return result;
 	}
 
-	private String getDeviceKeyByDeviceType(String deviceType){
-		String requestKey="";
-		if(SystemConstant.DeviceType.ios.equals(deviceType)){
-    		requestKey=SystemConstant.RequestKey.ios;
-    	}else if(SystemConstant.DeviceType.android.equals(deviceType)){
-    		requestKey=SystemConstant.RequestKey.android;
-    	}else if(SystemConstant.DeviceType.pc.equals(deviceType)){
-    		requestKey=SystemConstant.RequestKey.pc;
-    	}else if(SystemConstant.DeviceType.wechat.equals(deviceType)){
-    		requestKey=SystemConstant.RequestKey.wechat;
-    	}
-		return requestKey;
-	}
+
 
 }
